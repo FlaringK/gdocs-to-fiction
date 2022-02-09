@@ -1,0 +1,11 @@
+#file-output, #pruned-output {
+  outline: red solid;
+  margin: 1em;
+  padding: 1em;
+  padding-bottom: 1px;
+}
+
+#pruned-output > div {
+  outline: blue solid;
+  margin-bottom: 1em;
+}
