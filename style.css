@@ -66,6 +66,9 @@ body > p, #file-preview {
   overflow: auto;
   margin-top: 1em;
   margin-bottom: 0.5em;
+
+  font-weight: 400;
+  font-family: "Arial";
 }
 
 #pruned-output {
