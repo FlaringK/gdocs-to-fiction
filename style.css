@@ -95,10 +95,13 @@ body > p, #file-preview {
   justify-content: space-around;
 }
 #pruned-output > div {
-  border: var(--c3) solid;
   padding: 1em;
   margin-bottom: 1em;
   width: 30%;
+
+  border: var(--c3) solid;
+  border-radius: 0.5em;
+  box-shadow: -1px 2px var(--c3), -2px 4px var(--c3);
 }
 #pruned-output textarea {
   display: block;
