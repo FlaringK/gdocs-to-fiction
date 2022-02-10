@@ -14,11 +14,24 @@
 }
 body {
   text-align: center !important;
-  background: var(--c1);
+  
   color: var(--c5);
   font-family: 'Courier New', Courier, monospace !important;
   padding: 2em;
+
+  background: var(--c1);
+  background-image: 
+    radial-gradient(transparent 75%, var(--c3) 75%, var(--c3) 80%, transparent 80%),
+    radial-gradient(transparent 75%, var(--c1) 75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 4px 4px;
+
+  animation: bgMove 10s linear infinite;
 }
+@keyframes bgMove {
+  to { background-position: 120px 60px, 124px 64px;}
+}
+
 body > * {
   background: var(--c1);
   border: var(--c4) solid;
@@ -41,11 +54,16 @@ body > h1 {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px black;
   text-shadow: 2px 2px var(--c4);
+
+  background: none;
+
+  position: relative;
 }
 .subheading {
   position: absolute;
   font-size: 0.5em;
   right: 20%;
+  bottom: 0.1em
 }
 
 #file-input {
