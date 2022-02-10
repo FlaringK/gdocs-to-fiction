@@ -1,0 +1,76 @@
+
+{
+  "formats": [
+    { 
+      "name": "BBcode",
+
+      "bold": ["[b]", "[/b]"],
+      "italic": ["[i]", "[/i]"],
+      "underline": ["[u]", "[/u]"],
+      "strikethrough": ["[s]", "[/s]"],
+    
+      "color": ["[color=%INPUT%]", "[/color]"],
+      "font": ["[font=%INPUT%]", "[/font]"],
+      "size": ["[size=%INPUT%]", "[/size]"],
+      "url": ["[url=%INPUT%]", "[/url]"],
+
+      "headings": [
+        ["", ""],
+        ["", ""], 
+        ["", ""], 
+        ["", ""], 
+        ["", ""],
+        ["", ""], 
+        ["", ""]
+      ]
+    
+    },
+    {
+      "name": "Markdown",
+
+      "bold": ["**", "**"],
+      "italic": ["*", "*"],
+      "underline": ["", ""],
+      "strikethrough": ["~~", "~~"],
+    
+      "color": ["", ""],
+      "font": ["", ""],
+      "size": ["", ""],
+      "url": ["[", "](%INPUT%)"],
+    
+      "headings": [
+        ["", ""],
+        ["\n# ", "\n"], 
+        ["\n## ", "\n"], 
+        ["\n### ", "\n"], 
+        ["\n#### ", "\n"],
+        ["\n###### ", "\n"], 
+        ["\n####### ", "\n"]
+      ]
+
+    },
+    {
+      "name": "HTML",
+
+      "bold": ["<b>", "</b>"],
+      "italic": ["<i>", "</i>"],
+      "underline": ["<u>", "</u>"],
+      "strikethrough": ["<strike>", "</strike>"],
+    
+      "color": ["<span style='color:%INPUT%'>", "</span>"],
+      "font": ["<span style='font-family:%INPUT%'>", "</span>"],
+      "size": ["<span style='font-size:%INPUT%'>", "</span>"],
+      "url": ["<a href='%INPUT%'>", "</a>"],
+
+      "headings": [
+        ["<p>", "</p>"],
+        ["<h1>", "</h1>"], 
+        ["<h2>", "</h2>"], 
+        ["<h3>", "</h3>"], 
+        ["<h4>", "</h4>"], 
+        ["<h5>", "</h5>"], 
+        ["<h6>", "</h6>"] 
+      ]
+    }
+  ]
+}

@@ -3,6 +3,7 @@ var fileOutput = document.getElementById("file-output")
 var prunedOutput = document.getElementById("pruned-output")
 var gdHtml
 
+
 ////////////////////////////
 // GET HTML FILE FROM ZIP //
 ////////////////////////////
@@ -12,8 +13,7 @@ fileInput.onchange = async () => {
   gdHtml = await entries[0].getData(
     new zip.TextWriter(),
   );
-  // text contains the entry data as a String
-  console.log(gdHtml);
+  // gdHtml contains the entry data as a String
   pruneHTML()
 }
 
@@ -26,46 +26,12 @@ function getEntries(file, options) {
 /////////////////
 // ASSIGN TAGS //
 /////////////////
-let bbcode_format = {
-  "bold": ["[b]", "[/b]"],
-  "italic": ["[i]", "[/i]"],
-  "underline": ["[u]", "[/u]"],
-  "strikethrough": ["[s]", "[/s]"],
 
-  "color": ["[color=%INPUT%]", "[/color]"],
-  "font": ["[font=%INPUT%]", "[/font]"],
-  "size": ["[size=%INPUT%]", "[/size]"],
-  "url": ["[url=%INPUT%]", "[/url]"],
+// Get formats
+var formats
+fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => formats = jsondata.formats);
 
-}
-let markdown_format = {
-  "bold": ["**", "**"],
-  "italic": ["*", "*"],
-  "underline": ["", ""],
-  "strikethrough": ["~~", "~~"],
-
-  "color": ["", ""],
-  "font": ["", ""],
-  "size": ["", ""],
-  "url": ["[", "](%INPUT%)"],
-
-  "headings": [["# ", ""], ["## ", ""], ["### ", ""], ["#### ", ""], ["###### ", ""], ["####### ", ""]],
-}
-let html_format = {
-  "bold": ["<b>", "</b>"],
-  "italic": ["<i>", "</i>"],
-  "underline": ["<u>", "</u>"],
-  "strikethrough": ["<strike>", "</strike>"],
-
-  "color": ["<span style='color:%INPUT%'>", "</span>"],
-  "font": ["<span style='font-family:%INPUT%'>", "</span>"],
-  "size": ["<span style='font-size:%INPUT%'>", "</span>"],
-  "url": ["<a href='%INPUT%'>", "</a>"],
-
-}
-
-let formats = [bbcode_format, markdown_format, html_format]
-
+// Assign tags to class
 let createTags = (style, spanClass) => {
   var tags = []
   // tags for each format
@@ -144,78 +110,74 @@ let pruneHTML = () => {
 
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
   paragraphs.forEach(p => {
-    var headingNumber = 0
-    if (p.nodeName !== "P") {
-      headingNumber = parseInt(p.nodeName.substring(1)) - 1
-      for (let i = 0; i < formats.length; i++) {
-        if ("headings" in formats[i]) { output[i] += "\n" + formats[i]["headings"][headingNumber][0] }
-      }
-    }
 
-    var spans = p.querySelectorAll("span")
-    spans.forEach(span => {
+    // Check if there's any text in the paragraph at all
+    if (p.innerText) {
 
-      // Create classStyle if class isn't in object yet
-      if (!(span.classList in classStyles) && span.classList) {
-        classStyles[span.classList.toString()] = createTags(getComputedStyle(span), span.classList)
+      // Add opening paragraph tag
+      var headingNumber = p.nodeName == "P" ? 0 : parseInt(p.nodeName.substring(1))
+      for (let i = 0; i < formats.length; i++) { 
+        output[i] += formats[i].headings[headingNumber][0]
       }
 
-      // Format span one for each format style
-      var spanTags = classStyles[span.classList.toString()]
-      for (let i = 0; i < formats.length; i++) {
-        var spanText = span.innerText
-        var startspace = ""
-        var endspace = ""
+      var spans = p.querySelectorAll("span")
+      spans.forEach(span => {
 
-        // Check if link exists in span
-        if (span.querySelector("a")) {
-          var link = span.querySelector("a")
-          var replaceLink = formats[i]["url"][0] + link.innerText + formats[i]["url"][1]
-
-          var url = link.href.substring(29, link.href.indexOf("&", 29))
-
-          replaceLink = replaceLink.replace("%INPUT%", url)
-          spanText = spanText.replace(link.innerText, replaceLink)
-          console.log(spanText)
+        // Create classStyle if class isn't in object yet
+        if (!(span.classList in classStyles) && span.classList) {
+          classStyles[span.classList.toString()] = createTags(getComputedStyle(span), span.classList)
         }
 
-        // Apply tags
-        spanTags[i].forEach(tagPair => {
+        // Format span one for each format style
+        var spanTags = classStyles[span.classList.toString()]
+        for (let i = 0; i < formats.length; i++) {
+          var spanText = span.innerText
+          var startspace = ""
+          var endspace = ""
 
-          //Correct for spaces between tags
-          if (spanText[0] == " ") { 
-            startspace = " "
-            spanText = spanText.substring(1)
-          }
-          if (spanText[spanText.length - 1] == " ") { 
-            endspace = " "
-            spanText = spanText.substring(0, spanText.length - 1)
+          // Check if link exists in span
+          if (span.querySelector("a")) {
+            var link = span.querySelector("a")
+            var replaceLink = formats[i]["url"][0] + link.innerText + formats[i]["url"][1]
+            var url = link.href.substring(29, link.href.indexOf("&", 29))
+            replaceLink = replaceLink.replace("%INPUT%", url)
+            spanText = spanText.replace(link.innerText, replaceLink)
+            console.log(spanText)
           }
 
-          spanText = tagPair[0] + spanText + tagPair[1]
-        })
-        spanText = startspace + spanText + endspace
-        output[i] += spanText
+          // Apply tags
+          spanTags[i].forEach(tagPair => {
+            //Correct for spaces between tags
+            if (spanText[0] == " ") { 
+              startspace = " "
+              spanText = spanText.substring(1)
+            }
+            if (spanText[spanText.length - 1] == " ") { 
+              endspace = " "
+              spanText = spanText.substring(0, spanText.length - 1)
+            }
+            // Surround text in tags
+            spanText = tagPair[0] + spanText + tagPair[1]
+          })
+          spanText = startspace + spanText + endspace
+          output[i] += spanText
+        }
+
+      })
+
+      // Add closing paragraph tag
+      for (let i = 0; i < formats.length; i++) { 
+        output[i] += formats[i].headings[headingNumber][1] + "\n"
       }
-
-    })
-
-    // if (p.nodeName !== "P") {
-    //   for (let i = 0; i < formats.length; i++) { 
-    //     output[i] += formats[i]["headings"][headingNumber][1] + "\n" 
-    //   }
-    // } else {
-    //   for (let i = 0; i < formats.length; i++) { output[i] += "\n" }
-    // }
-
-    for (let i = 0; i < formats.length; i++) { 
-      output[i] += "\n"
+    } else { // if there's no text in the paragraph
+      for (let i = 0; i < formats.length; i++) { 
+        output[i] += "\n"
+      }
     }
-    
   })
 
+  // Output to page
   console.log(classStyles)
-  console.log(output)
   output.forEach(e => {
     var div = document.createElement("div")
     div.innerText = e
