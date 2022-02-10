@@ -188,7 +188,7 @@ let pruneHTML = () => {
     wrap.innerText = formats[i].name
 
     var content = document.createElement("textarea")
-    content.innerText = e
+    content.innerHTML = e
     wrap.appendChild(content)
 
     prunedOutput.appendChild(wrap)

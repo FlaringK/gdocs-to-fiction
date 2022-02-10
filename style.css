@@ -74,5 +74,5 @@ body > p, #file-output {
   width: 100%;
   resize: none;
   height: 20em;
-  white-space: ;
+  white-space: pre-line;
 }
