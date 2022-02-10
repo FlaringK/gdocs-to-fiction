@@ -50,7 +50,7 @@
 
     },
     {
-      "name": "HTML",
+      "name": "Basic HTML",
 
       "bold": ["<b>", "</b>"],
       "italic": ["<i>", "</i>"],

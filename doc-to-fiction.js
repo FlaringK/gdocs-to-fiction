@@ -183,10 +183,15 @@ let pruneHTML = () => {
 
   // Output to page
   console.log(classStyles)
-  output.forEach(e => {
-    var div = document.createElement("div")
-    div.innerText = e
-    prunedOutput.appendChild(div)
+  output.forEach((e, i) => {
+    var wrap = document.createElement("div")
+    wrap.innerText = formats[i].name
+
+    var content = document.createElement("textarea")
+    content.innerText = e
+    wrap.appendChild(content)
+
+    prunedOutput.appendChild(wrap)
   })
 }
 

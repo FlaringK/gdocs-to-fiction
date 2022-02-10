@@ -19,7 +19,6 @@ body {
   font-family: 'Courier New', Courier, monospace !important;
   padding: 2em;
 }
-
 body > * {
   background: var(--c1);
   border: var(--c4) solid;
@@ -59,12 +58,21 @@ body > p, #file-output {
   z-index: 2;
 }
 
-#file-output, #pruned-output {
-  padding: 1em;
-  padding-bottom: 1px;
+#pruned-output {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
-
 #pruned-output > div {
-  outline: blue solid;
+  border: var(--c3) solid;
+  padding: 1em;
   margin-bottom: 1em;
+  width: 30%;
+}
+#pruned-output textarea {
+  display: block;
+  width: 100%;
+  resize: none;
+  height: 20em;
+  white-space: ;
 }
