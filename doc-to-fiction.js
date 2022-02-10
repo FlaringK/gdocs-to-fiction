@@ -33,7 +33,10 @@ let bbcode_format = {
   "strikethrough": ["[s]", "[/s]"],
 
   "color": ["[color=%INPUT%]", "[/color]"],
-  "font": ["[font=%INPUT%]", "[/font]"]
+  "font": ["[font=%INPUT%]", "[/font]"],
+  "size": ["[size=%INPUT%]", "[/size]"],
+  "url": ["[url=%INPUT%]", "[/url]"],
+
 }
 let markdown_format = {
   "bold": ["**", "**"],
@@ -43,6 +46,10 @@ let markdown_format = {
 
   "color": ["", ""],
   "font": ["", ""],
+  "size": ["", ""],
+  "url": ["[", "](%INPUT%)"],
+
+  "headings": [["# ", ""], ["## ", ""], ["### ", ""], ["#### ", ""], ["###### ", ""], ["####### ", ""]],
 }
 let html_format = {
   "bold": ["<b>", "</b>"],
@@ -52,6 +59,9 @@ let html_format = {
 
   "color": ["<span style='color:%INPUT%'>", "</span>"],
   "font": ["<span style='font-family:%INPUT%'>", "</span>"],
+  "size": ["<span style='font-size:%INPUT%'>", "</span>"],
+  "url": ["<a href='%INPUT%'>", "</a>"],
+
 }
 
 let formats = [bbcode_format, markdown_format, html_format]
@@ -78,7 +88,13 @@ let createTags = (style, spanClass) => {
       var fontTagPair = [formats[i]["font"][0], formats[i]["font"][1]]
       fontTagPair[0] = fontTagPair[0].replace("%INPUT%", style.fontFamily)
       fTags.push(fontTagPair)
-     }
+    }
+    if (style.fontSize !== "14.6667px") {
+      var sizeTagPair = [formats[i]["size"][0], formats[i]["size"][1]]
+      var roundedFontSize = parseFloat(style.fontSize.substring(0, style.fontSize.length - 2)).toFixed(0) + "px"
+      sizeTagPair[0] = sizeTagPair[0].replace("%INPUT%", roundedFontSize)
+      fTags.push(sizeTagPair)
+    }
 
     DecoTags.forEach(rule => {
       switch (rule) {
@@ -117,6 +133,7 @@ let createTags = (style, spanClass) => {
 ////////////////
 let pruneHTML = () => {
   fileOutput.innerHTML = gdHtml
+  prunedOutput.innerHTML = ""
 
   // Create Outputs for each format
   var output = []
@@ -125,8 +142,16 @@ let pruneHTML = () => {
   // Contains tags for the style of each class of span
   var classStyles = {}
 
-  var paragraphs = fileOutput.querySelectorAll("p")
+  var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
   paragraphs.forEach(p => {
+    var headingNumber = 0
+    if (p.nodeName !== "P") {
+      headingNumber = parseInt(p.nodeName.substring(1)) - 1
+      for (let i = 0; i < formats.length; i++) {
+        if ("headings" in formats[i]) { output[i] += "\n" + formats[i]["headings"][headingNumber][0] }
+      }
+    }
+
     var spans = p.querySelectorAll("span")
     spans.forEach(span => {
 
@@ -141,6 +166,20 @@ let pruneHTML = () => {
         var spanText = span.innerText
         var startspace = ""
         var endspace = ""
+
+        // Check if link exists in span
+        if (span.querySelector("a")) {
+          var link = span.querySelector("a")
+          var replaceLink = formats[i]["url"][0] + link.innerText + formats[i]["url"][1]
+
+          var url = link.href.substring(29, link.href.indexOf("&", 29))
+
+          replaceLink = replaceLink.replace("%INPUT%", url)
+          spanText = spanText.replace(link.innerText, replaceLink)
+          console.log(spanText)
+        }
+
+        // Apply tags
         spanTags[i].forEach(tagPair => {
 
           //Correct for spaces between tags
@@ -161,7 +200,18 @@ let pruneHTML = () => {
 
     })
 
-    for (let i = 0; i < formats.length; i++) { output[i] += "\n" }
+    // if (p.nodeName !== "P") {
+    //   for (let i = 0; i < formats.length; i++) { 
+    //     output[i] += formats[i]["headings"][headingNumber][1] + "\n" 
+    //   }
+    // } else {
+    //   for (let i = 0; i < formats.length; i++) { output[i] += "\n" }
+    // }
+
+    for (let i = 0; i < formats.length; i++) { 
+      output[i] += "\n"
+    }
+    
   })
 
   console.log(classStyles)
