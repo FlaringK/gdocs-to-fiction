@@ -48,14 +48,24 @@ body > h1 {
   right: 20%;
 }
 
-body > p, #file-output {
+#file-input {
+  z-index: -1;
+}
+
+body > p, #file-preview {
+  font-size: medium;
   max-width: 50em;
   margin: auto;
   box-sizing: border-box;
 }
 #file-output {
-  max-height: 40em;
-  z-index: 2;
+  background: white;
+  padding: 1em;
+  border: var(--c5) solid;
+  height: 20em;
+  overflow: auto;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
 
 #pruned-output {
