@@ -1,3 +1,35 @@
+:root {
+  --c1: #faf5d8 ;
+  --c2: #d8ae8b ;
+  --c3: #f2ab37 ;
+  --c4: #cd5f2a ;
+  --c5: #21181b ;
+
+  --bs: 
+}
+body {
+  text-align: center;
+  background: var(--c1);
+  color: var(--c5);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body > * {
+  background: var(--c1);
+  border: var(--c4) solid;
+  box-sizing: border-box;
+
+  border-radius: 1em;
+  padding: 0.5em 1em;
+
+  box-shadow: 
+    -1px 2px 0 var(--c4), 
+    -2px 4px 0 var(--c4), 
+    -3px 6px 0 var(--c4),
+    -4px 8px 0 var(--c4),
+    -15px 30px 0 var(--c3);
+}
+
 #file-output, #pruned-output {
   outline: red solid;
   margin: 1em;

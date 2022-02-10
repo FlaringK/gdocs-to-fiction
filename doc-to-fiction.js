@@ -97,9 +97,14 @@ let createTags = (style, spanClass) => {
 ////////////////
 // PRUNE HTML //
 ////////////////
+var pesterchum = true
+
 let pruneHTML = () => {
   fileOutput.innerHTML = gdHtml
   prunedOutput.innerHTML = ""
+
+  // Apply auto formatting to GD
+  if (pesterchum) { fileOutput.innerHTML = applyPesterchum(fileOutput.innerHTML) }
 
   // Create Outputs for each format
   var output = []
@@ -183,4 +188,16 @@ let pruneHTML = () => {
     div.innerText = e
     prunedOutput.appendChild(div)
   })
+}
+
+
+
+/////////////////////
+// Auto Formatting //
+/////////////////////
+
+let applyPesterchum = GDhtml => {
+  var output = GDhtml
+
+  return output
 }
