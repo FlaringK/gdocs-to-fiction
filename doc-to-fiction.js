@@ -33,6 +33,7 @@ var pesterchum
 fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => {
   formats = jsondata.formats
   pesterchum = jsondata.pesterchum
+  generateFormats()
 });
 
 // Assign tags to class
@@ -74,11 +75,6 @@ let createTags = (style, spanClass) => {
       var roundedFontSize = parseFloat(style.fontSize.substring(0, style.fontSize.length - 2)).toFixed(0) + "px"
       sizeTagPair[0] = sizeTagPair[0].replace("%INPUT%", roundedFontSize)
       fTags.push(sizeTagPair)
-    }
-
-    if (style.color !== "rgb(0, 0, 0)") {
-      getColor(style.color)
-      console.log("vriska")
     }
 
     DecoTags.forEach(rule => {
@@ -201,8 +197,6 @@ let generateFormats = () => {
     prunedOutput.appendChild(wrap)
   })
 }
-
-
 
 /////////////////////
 // Auto Formatting //
