@@ -14,7 +14,7 @@ fileInput.onchange = async () => {
     new zip.TextWriter(),
   );
   // gdHtml contains the entry data as a String
-  pruneHTML()
+  fileOutput.innerHTML = gdHtml
 }
 
 function getEntries(file, options) {
@@ -94,13 +94,12 @@ let createTags = (style, spanClass) => {
 
 
 
-////////////////
-// PRUNE HTML //
-////////////////
+/////////////////////
+// Genrate formats //
+/////////////////////
 var pesterchum = true
 
-let pruneHTML = () => {
-  fileOutput.innerHTML = gdHtml
+let generateFormats = () => {
   prunedOutput.innerHTML = ""
 
   // Apply auto formatting to GD
