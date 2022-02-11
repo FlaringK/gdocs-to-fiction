@@ -187,6 +187,11 @@ let generateFormats = () => {
   // Output to page
   console.log(classStyles)
   output.forEach((e, i) => {
+    // Replace Pchums
+    e = e.replaceAll(formats[i].headings[0][0] + PstartString + formats[i].headings[0][1], formats[i].pchum[0])
+    e = e.replaceAll(formats[i].headings[0][0] + PendString + formats[i].headings[0][1], formats[i].pchum[1])
+
+    // Create outputs
     var wrap = document.createElement("div")
     wrap.innerText = formats[i].name
     wrap.id = formats[i].name
@@ -201,7 +206,7 @@ let generateFormats = () => {
   // Format AO3
   var ao3 = document.getElementById("Basic_HTML").cloneNode(true)
   ao3.innerHTML = ao3.innerHTML.replace("Basic_HTML", "AO3 HTML")
-  ao3.innerHTML.replaceAll("<span style='font-family:Courier New'>", "")
+  ao3.innerHTML = ao3.innerHTML.replaceAll("<span style='font-family:Courier New'>", "")
   
   for (const [key, value] of Object.entries(pesterchum)) {
     ao3.innerHTML = ao3.innerHTML.replaceAll("style='color:" + value.color + "'", "class=\"" + value.ao3 + "\"")
@@ -214,9 +219,36 @@ let generateFormats = () => {
 // Auto Formatting //
 /////////////////////
 
+var PstartString = "pchumStart_flaringKisCool"
+var PendString = "pchumEnd_flaringKisCool"
+
 let applyPesterchum = () => {
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
-  paragraphs.forEach(p => {
+
+  let addPchumStart = pIndex => {
+    var pchumStart = document.createElement("p")
+    var pspan = document.createElement('span')
+    pchumStart.classList = "pchumStart"
+    pspan.innerText = PstartString
+
+    pchumStart.appendChild(pspan)
+    paragraphs[pIndex].parentNode.insertBefore(pchumStart, paragraphs[pIndex])
+  }
+  let addPchumEnd = pIndex => {
+    var pchumEnd = document.createElement("p")
+    var pspan = document.createElement('span')
+    pchumEnd.classList = "pchumEnd"
+    pspan.innerText = PendString
+
+    pchumEnd.appendChild(pspan)
+    paragraphs[pIndex].parentNode.insertBefore(pchumEnd, paragraphs[pIndex])
+  }
+
+  var was_pchum = false
+  var is_pchum = false
+  paragraphs.forEach((p, i) => {
+    was_pchum = is_pchum
+    is_pchum = false
 
     if (p.innerText.indexOf(":") + 1 == p.innerText.indexOf(" ")) {
       var handle = p.innerText.substring(0, p.innerText.indexOf(":"))
@@ -254,25 +286,46 @@ let applyPesterchum = () => {
           spanHandle.classList = handle
           p.prepend(spanHandle)
         }
+
+        p.classList += " pchum"
+        is_pchum = true
       }
     }
 
-    // If handle is notification
-    if (p.innerText.substring(0, 2) == "--" || p.innerText[0] == "–") {
+    // If handle is notification (Has -- at the start and end)
+    if ((p.innerText.substring(0, 2) == "--" || p.innerText[0] == "–") && 
+      (p.innerText.substring(p.innerText.length - 2, p.innerText.length) == "--" || p.innerText[p.innerText.length - 1] == "–")) {
       
+      p.classList += " pchum"
+
+      p.style.fontFamily = "Courier New !important"
+      p.style.fontWeight = "600 !important"
+
+      p.innerHTML = p.innerHTML.replaceAll("–", "--")
+      for (const [key, value] of Object.entries(pesterchum)) {
+        console.log(key, value.handle)
+        p.innerHTML = p.innerHTML.replaceAll(" " + key, key) 
+        p.innerHTML = p.innerHTML.replaceAll(key + " ", key) 
+        p.innerHTML = p.innerHTML.replaceAll(key, " " + value.handle + " [" + key + "] ")
+        p.innerHTML = p.innerHTML.replaceAll(" [" + key + "] ", "</span> <span class='notif" + key + "' style='color:" + value.color + "'>[" + key + "]</span><span> ")
+      }
+
       var spans = p.querySelectorAll("span")
       spans.forEach(span => {
         span.style.fontFamily = "Courier New"
         span.style.fontWeight = "600"
-        span.innerText = span.innerText.replaceAll("–", "--")
-
-        for (const [key, value] of Object.entries(pesterchum)) {
-          console.log(key, value.handle)
-          span.innerHTML = span.innerHTML.replaceAll(" " + key, key) 
-          span.innerHTML = span.innerHTML.replaceAll(key + " ", key) 
-          span.innerHTML = span.innerHTML.replaceAll(key, " " + value.handle + " <span style='color:" + value.color + "'>[" + key + "]</span> ")
-        }
       })
+
+      p.classList += " pchum"
+      is_pchum = true
+    }
+
+    if (was_pchum !== is_pchum) {
+      if (is_pchum) {
+        addPchumStart(i)
+      } else {
+        addPchumEnd(i)
+      }
     }
   })
 }

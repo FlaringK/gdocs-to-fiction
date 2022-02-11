@@ -112,3 +112,29 @@ body > p, #file-preview {
   height: 20em;
   white-space: pre-line;
 }
+
+/* Pesterchum */
+
+.pchum {
+  border: 1px dashed gray;
+  border-top: none;
+  border-bottom: none;
+  padding: 0 19px;
+  background: #eee;
+}
+
+.pchumEnd {
+  border: 1px dashed gray;
+  border-top: none;
+  background: #eee;
+  color: transparent;
+  height: 19px;
+}
+
+.pchumStart {
+  border: 1px dashed gray;
+  border-bottom: none;
+  background: #eee;
+  color: transparent;
+  height: 19px;
+}
