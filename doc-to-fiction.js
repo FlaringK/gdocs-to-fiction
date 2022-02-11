@@ -29,7 +29,11 @@ function getEntries(file, options) {
 
 // Get formats
 var formats
-fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => formats = jsondata.formats);
+var pesterchum
+fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => {
+  formats = jsondata.formats
+  pesterchum = jsondata.pesterchum
+});
 
 // Assign tags to class
 let createTags = (style, spanClass) => {
@@ -42,6 +46,16 @@ let createTags = (style, spanClass) => {
     let rgb2hex = (r, g, b) => {
       var rgb = (r << 16) | (g << 8) | b
       return '#' + rgb.toString(16).padStart(6, 0)  
+    }
+    let getColor = rule => {
+      var rgb = rule.substring(4, rule.length - 1).split(",")
+        rgb.forEach((e, i) => { rgb[i] = parseInt(e.trim()) })
+        if (rgb[0] + rgb[1] + rgb[2] !== 0) {
+          var colourTagPair = [formats[i]["color"][0], formats[i]["color"][1]]
+          var hexcolor =  rgb2hex(rgb[0], rgb[1], rgb[2])
+          colourTagPair[0] = colourTagPair[0].replace("%INPUT%", hexcolor)
+          fTags.push(colourTagPair)
+        }
     }
 
     // Find tags in textDecoration
@@ -62,6 +76,11 @@ let createTags = (style, spanClass) => {
       fTags.push(sizeTagPair)
     }
 
+    if (style.color !== "rgb(0, 0, 0)") {
+      getColor(style.color)
+      console.log("vriska")
+    }
+
     DecoTags.forEach(rule => {
       switch (rule) {
         case "underline":
@@ -74,14 +93,7 @@ let createTags = (style, spanClass) => {
       
       //RGB
       if (rule.includes("rgb")) {
-        var rgb = rule.substring(4, rule.length - 1).split(",")
-        rgb.forEach((e, i) => { rgb[i] = parseInt(e.trim()) })
-        if (rgb[0] + rgb[1] + rgb[2] !== 0) {
-          var colourTagPair = [formats[i]["color"][0], formats[i]["color"][1]]
-          var hexcolor =  rgb2hex(rgb[0], rgb[1], rgb[2])
-          colourTagPair[0] = colourTagPair[0].replace("%INPUT%", hexcolor)
-          fTags.push(colourTagPair)
-        }
+        getColor(rule)
       }
 
     })
@@ -97,13 +109,9 @@ let createTags = (style, spanClass) => {
 /////////////////////
 // Genrate formats //
 /////////////////////
-var pesterchum = true
 
 let generateFormats = () => {
   prunedOutput.innerHTML = ""
-
-  // Apply auto formatting to GD
-  if (pesterchum) { fileOutput.innerHTML = applyPesterchum(fileOutput.innerHTML) }
 
   // Create Outputs for each format
   var output = []
@@ -200,8 +208,45 @@ let generateFormats = () => {
 // Auto Formatting //
 /////////////////////
 
-let applyPesterchum = GDhtml => {
-  var output = GDhtml
+let applyPesterchum = () => {
+  var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
+  paragraphs.forEach(p => {
+    if (p.innerText.indexOf(":") + 1 == p.innerText.indexOf(" ")) {
+      var handle = p.innerText.substring(0, p.innerText.indexOf(":"))
 
-  return output
+      // if the handle is logged give a color
+      if (pesterchum[handle]) {
+        var chumColor = pesterchum[handle]
+        var chumHandle = handle
+        var is_quote = false
+        //check for quote
+        for (const [key, value] of Object.entries(pesterchum)) {
+          if (p.innerText.includes(handle + ": " + key + ":")) {
+            is_quote = true
+            p.innerHTML = p.innerHTML.replace(handle + ": ", "")
+            chumColor = value
+            chumHandle = key
+          }
+        }
+
+        var spans = p.querySelectorAll("span")
+        spans.forEach(span => {
+          span.classList += chumHandle
+          span.style.color = chumColor
+          span.style.fontFamily = "Courier New"
+          span.style.fontWeight = "600"
+        })
+
+        if (is_quote) {
+          var spanHandle = document.createElement("span")
+          spanHandle.innerText = handle + ": "
+          spanHandle.style.color = pesterchum[handle]
+          spanHandle.style.fontFamily = "Courier New"
+          spanHandle.style.fontWeight = "600"
+          spanHandle.classList = handle
+          p.prepend(spanHandle)
+        }
+      }
+    }
+  })
 }
