@@ -50,7 +50,7 @@
 
     },
     {
-      "name": "Basic HTML",
+      "name": "Basic_HTML",
 
       "bold": ["<b>", "</b>"],
       "italic": ["<i>", "</i>"],
@@ -74,9 +74,25 @@
     }
   ],
   "pesterchum": {
-    "EB": "#0715cd",
-    "TT": "#b536da",
-    "TG": "#e00707",
-    "GG": "#4ac925"
+    "EB": {
+      "color": "#0715cd",
+      "ao3": "john",
+      "handle": "ectoBiologist"
+    },
+    "TT": {
+      "color": "#b536da",
+      "ao3": "rose",
+      "handle": "tenticalTherapist"
+    },
+    "TG": {
+      "color": "#e00707",
+      "ao3": "dave",
+      "handle": "turntechGodhead"
+    },
+    "GG": {
+      "color": "#4ac925",
+      "ao3": "jade",
+      "handle": "gardenGnostic"
+    }
   }
 }

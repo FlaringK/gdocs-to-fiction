@@ -189,6 +189,7 @@ let generateFormats = () => {
   output.forEach((e, i) => {
     var wrap = document.createElement("div")
     wrap.innerText = formats[i].name
+    wrap.id = formats[i].name
 
     var content = document.createElement("textarea")
     content.innerHTML = e
@@ -196,6 +197,17 @@ let generateFormats = () => {
 
     prunedOutput.appendChild(wrap)
   })
+
+  // Format AO3
+  var ao3 = document.getElementById("Basic_HTML").cloneNode(true)
+  ao3.innerHTML = ao3.innerHTML.replace("Basic_HTML", "AO3 HTML")
+  ao3.innerHTML.replaceAll("<span style='font-family:Courier New'>", "")
+  
+  for (const [key, value] of Object.entries(pesterchum)) {
+    ao3.innerHTML = ao3.innerHTML.replaceAll("style='color:" + value.color + "'", "class=\"" + value.ao3 + "\"")
+  }
+
+  prunedOutput.appendChild(ao3)
 }
 
 /////////////////////
@@ -205,20 +217,22 @@ let generateFormats = () => {
 let applyPesterchum = () => {
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
   paragraphs.forEach(p => {
+
     if (p.innerText.indexOf(":") + 1 == p.innerText.indexOf(" ")) {
       var handle = p.innerText.substring(0, p.innerText.indexOf(":"))
 
       // if the handle is logged give a color
       if (pesterchum[handle]) {
-        var chumColor = pesterchum[handle]
-        var chumHandle = handle
+        var chumColor = pesterchum[handle].color
+        var chumHandle = handle.color
         var is_quote = false
+
         //check for quote
         for (const [key, value] of Object.entries(pesterchum)) {
           if (p.innerText.includes(handle + ": " + key + ":")) {
             is_quote = true
             p.innerHTML = p.innerHTML.replace(handle + ": ", "")
-            chumColor = value
+            chumColor = value.color
             chumHandle = key
           }
         }
@@ -234,13 +248,31 @@ let applyPesterchum = () => {
         if (is_quote) {
           var spanHandle = document.createElement("span")
           spanHandle.innerText = handle + ": "
-          spanHandle.style.color = pesterchum[handle]
+          spanHandle.style.color = pesterchum[handle].color
           spanHandle.style.fontFamily = "Courier New"
           spanHandle.style.fontWeight = "600"
           spanHandle.classList = handle
           p.prepend(spanHandle)
         }
       }
+    }
+
+    // If handle is notification
+    if (p.innerText.substring(0, 2) == "--" || p.innerText[0] == "–") {
+      
+      var spans = p.querySelectorAll("span")
+      spans.forEach(span => {
+        span.style.fontFamily = "Courier New"
+        span.style.fontWeight = "600"
+        span.innerText = span.innerText.replaceAll("–", "--")
+
+        for (const [key, value] of Object.entries(pesterchum)) {
+          console.log(key, value.handle)
+          span.innerHTML = span.innerHTML.replaceAll(" " + key, key) 
+          span.innerHTML = span.innerHTML.replaceAll(key + " ", key) 
+          span.innerHTML = span.innerHTML.replaceAll(key, " " + value.handle + " <span style='color:" + value.color + "'>[" + key + "]</span> ")
+        }
+      })
     }
   })
 }
