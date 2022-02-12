@@ -4,22 +4,31 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Docs to Fiction</title>
+  <title>GDocs to Fiction</title>
+  <link rel="icon" type="image/x-icon" href="imgs/gdoc-to-fiction.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flaringk.github.io/gdocs-to-fiction/">
+  <meta property="og:title" content="Gdocs to Fiction">
+  <meta property="og:description" content="Convert Google docs to Fan Fiction!">
+  <meta property="og:image" content="imgs/gdoc-to-fiction.png">
+  <meta name="theme-color" content="#f2ab37">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>docs-to-fiction <div class="subheading">by FlaringK</div> </h1>
-  <p>Welcome to "Docs to Fiction", a page for formatting your google docs for fanfiction websites. To get started, head to the google doc you'd like to format and download it as a zipped Webpage (Go to File > Download > Web Page). Then drag and drop that zip file below to watch the magic happen</p>
+  <h1>gdocs-to-fiction <div class="subheading">by FlaringK</div> </h1>
+  <img src="imgs/gdoc-to-fiction.png" id="gdoclogo">
+  <p>Welcome to "GDocs to Fiction", a page for formatting your google docs for fanfiction websites. To get started, head to the google doc you'd like to format and download it as a zipped Webpage (Go to File > Download > Web Page). Then drag and drop that zip file below to watch the magic happen</p>
   <br>
   <div id="file-preview"> 
     <input type="file" id="file-input" accept="application/zip">
     <div id="file-output"></div>
     
-    <label for="pchumlb">Ignore paragraph gaps between pesterchum messages?</label><input type="checkbox" name="pchumlb" id="pchumlb">
-    <button onclick="applyPesterchum()">Pesterchum Formats</button>
+    <label for="pchumlb">Ignore paragraph gaps between pesterchum messages?</label><input type="checkbox" name="pchumlb" id="pchumlb"><br>
+    <button onclick="applyPesterchum()" id="aplPchum">Auto apply pesterlog formatting</button>
     <br> <br>
-    <button onclick="generateFormats()">Generate Formats</button>
+    <button onclick="generateFormats()" id="genFormat">Generate Formats</button>
     
   </div>
 

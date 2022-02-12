@@ -263,6 +263,7 @@ let applyPesterchum = () => {
     var p = paragraphs[pIndex]
     return (p.innerText.substring(indentCheck ? 2 : 0, 2) == "--" || p.innerText[indentCheck ? 2 : 0] == "–") && 
     (p.innerText.substring(p.innerText.length - 2, p.innerText.length) == "--" || p.innerText[p.innerText.length - 1] == "–")
+    && p.innerText.includes(" ")
   }
 
   // Format each paragraph

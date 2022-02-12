@@ -66,6 +66,41 @@ body > h1 {
   bottom: 0.1em
 }
 
+#gdoclogo {
+  position: absolute;
+  top: 40px;
+  left: 15%;
+  z-index: -1;
+  
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+#genFormat, #aplPchum {
+  background: var(--c4);
+  color: var(--c1);
+  font-size: unset;
+  font-family: 'Courier New';
+  font-weight: 600;
+  
+  border-radius: 100px;
+  padding: 0.5em 1em;
+  
+  border: none;
+  box-shadow: -1px 2px var(--c3), -2px 4px var(--c3);
+  
+  cursor: pointer;
+}
+
+#genFormat:active, #aplPchum:active {
+  box-shadow: none;
+  transform: translate(-2px, 4px);
+  
+  background: var(--c3);
+  color: var(--c4);
+}
+
 #file-input {
   z-index: -1;
 }
