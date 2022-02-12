@@ -99,11 +99,13 @@ body > p, #file-preview {
 #pruned-output > div {
   padding: 1em;
   margin-bottom: 1em;
-  width: 30%;
+  min-width: 450px;
 
   border: var(--c3) solid;
   border-radius: 0.5em;
   box-shadow: -1px 2px var(--c3), -2px 4px var(--c3);
+
+  flex-grow: 1;
 }
 #pruned-output textarea {
   display: block;
