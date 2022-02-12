@@ -229,8 +229,7 @@ let applyPesterchum = () => {
   // Check options
   var ignorePchumLinebreaks = document.getElementById("pchumlb").checked
 
-  // Etch's correction
-  fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("> ", "")
+  // Correction
   fileOutput.appendChild(document.createElement("p"))
 
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
@@ -256,13 +255,13 @@ let applyPesterchum = () => {
   }
 
   // Check if p is message or notification
-  let isPchumMessage = pIndex => {
+  let isPchumMessage = (pIndex, indentCheck) => {
     var p = paragraphs[pIndex]
-    return pesterchum[p.innerText.substring(0, p.innerText.indexOf(":"))]
+    return pesterchum[p.innerText.substring(indentCheck ? 2 : 0, p.innerText.indexOf(":"))]
   }
-  let isPchumNotifcation = pIndex => {
+  let isPchumNotifcation = (pIndex, indentCheck) => {
     var p = paragraphs[pIndex]
-    return (p.innerText.substring(0, 2) == "--" || p.innerText[0] == "–") && 
+    return (p.innerText.substring(indentCheck ? 2 : 0, 2) == "--" || p.innerText[indentCheck ? 2 : 0] == "–") && 
     (p.innerText.substring(p.innerText.length - 2, p.innerText.length) == "--" || p.innerText[p.innerText.length - 1] == "–")
   }
 
@@ -273,6 +272,13 @@ let applyPesterchum = () => {
     var p = paragraphs[i]
     was_pchum = is_pchum
     is_pchum = false
+
+    // Remove "> " for Etch
+    if (p.innerText.substring(0, 2) == "> ") {
+      if (isPchumMessage(i, true) || isPchumNotifcation(i, true)) {
+        p.innerHTML = p.innerHTML.replace("&gt; ", "")
+      }
+    }
 
     // if the handle is logged give a color
     if (isPchumMessage(i)) {
