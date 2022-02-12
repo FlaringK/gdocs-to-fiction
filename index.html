@@ -31,9 +31,11 @@
     <div class="tooltip">(?)
       <span class="tooltiptext">This will add formatting to the original Gdoc to emulate a pesterlog from the webcomic homestuck. 
         <br> <br> 
-        As of right now it will only detect the beta kid's and troll's handles, it will also detect the alpha kid's handles if a "~" is added at the end of the handle. 
+        Automatically it will detect all Homestuck chumhandles and the names of all homstuck characters who talk. 
         <br> <br>
-        It will also detect notifications, so long as the line of text both begins and ends with "--"
+        The alpha kids handle colours can be accessed by adding a "~" to the end of their handle. This is also how to switch between Calliope and Caliborn.
+        <br> <br>
+        It will also detect notifications, so long as the line of text both begins and ends with "--".
       </span>
     </div> 
     <div class="tooltip">(example)
@@ -44,6 +46,8 @@
           <p>TT: Hello I am Rose</p>
           <p>GG: hello i am jade</p>
           <p>TT~: Hello I am Dirk</p>
+          <p>KARKAT: HELLO I AM KARKAT</p>
+          <p>AA: hell0 i am aradia 0u0</p>
           <p>It was a very cool converstation</p>
         </div>
        After:
@@ -53,6 +57,8 @@
           <p class="pchum" style="color: #b536da">TT: Hello I am Rose</p>
           <p class="pchum" style="color: #4ac925">GG: hello i am jade</p>
           <p class="pchum" style="color: #f2a400">TT: Hello I am Dirk</p>
+          <p class="pchum" style="color: #626262">KARKAT: HELLO I AM KARKAT</p>
+          <p class="pchum" style="color: #a10000">AA: hell0 i am aradia 0u0</p>
           <p class="pchumEnd"></p>
           <p>It was a very cool converstation</p>
         </div>

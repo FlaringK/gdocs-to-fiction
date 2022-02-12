@@ -178,6 +178,53 @@
       "color": "#a1a100",
       "ao3": "captor",
       "handle": ""
+    },
+
+    "UU": {
+      "color": "#929292",
+      "ao3": "calliope",
+      "handle": "uranianUmbra"
+    },
+    "UU~": {
+      "color": "#323232",
+      "ao3": "caliborn",
+      "handle": "undyingUmbrage"
+    },
+
+    "KANKRI": {
+      "color": "#ff0000",
+      "ao3": "kankri",
+      "handle": ""
+    },
+    "DOC": {
+      "color": "#ffffff",
+      "ao3": "docscratch",
+      "handle": ""
     }
+  },
+  "pchumNames": {
+    "EB": ["John", "June", "GT", "Tavrisprite"],
+    "TT": ["Rose", "Fefetasprite"],
+    "TG": ["Dave", "Autoresponder", "Arquiusprite"],
+    "GG": ["Jade", "Erisolsprite"],
+    "GT~": ["Jake", "Jadesprite"],
+    "TT~": ["Dirk", "Davesprite"],
+    "TG~": ["Roxy", "Jaspersprite"],
+    "GG~": ["Jane", "Nannasprite"],
+
+    "GC": ["Terezi", "Latula"],
+    "GA": ["Kanaya", "Porrim"],
+    "CG": ["Karkat"],
+    "CC": ["Feferi", "Meenah"],
+    "CA": ["Eridan", "Cronus"],
+    "CT": ["Equius", "Horuss", "Aradiabot"],
+    "AG": ["Vriska", "Aranea"],
+    "AC": ["Nepeta", "Meulin"],
+    "AA": ["Aradia", "Damara"],
+    "AT": ["Tavros", "Rufioh"],
+    "TC": ["Gamzee", "Kurloz"],
+    "TA": ["Sollux", "Mituna"],
+
+    "KANKRI": ["Squarewave"]
   }
 }

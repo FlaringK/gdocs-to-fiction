@@ -33,6 +33,15 @@ var pesterchum
 fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => {
   formats = jsondata.formats
   pesterchum = jsondata.pesterchum
+
+  for (const [key, value] of Object.entries(pesterchum)) {
+    if (jsondata.pchumNames[key]) {
+      jsondata.pchumNames[key].forEach(dupKey => {
+        pesterchum[dupKey.toUpperCase()] = value
+      })
+    }
+  }
+
   generateFormats()
 });
 
@@ -336,7 +345,7 @@ let applyPesterchum = () => {
         p.innerHTML = p.innerHTML.replaceAll(key + " ", key) 
         p.innerHTML = p.innerHTML.replaceAll(key, " " + value.handle + " [" + key + "] ")
         p.innerHTML = p.innerHTML.replaceAll(" [" + key + "] ", "</span> <span class='notif" + key + "' style='color:" + value.color + "'>[" + key + "]</span><span> ")
-        p.innerHTML = p.innerHTML.replaceAll("~", "")
+        p.innerHTML = p.innerHTML.replaceAll("~]", "]")
       }
 
       var spans = p.querySelectorAll("span")
