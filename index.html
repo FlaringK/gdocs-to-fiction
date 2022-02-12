@@ -15,8 +15,12 @@
   <div id="file-preview"> 
     <input type="file" id="file-input" accept="application/zip">
     <div id="file-output"></div>
-    <button onclick="generateFormats()">Generate Formats</button>
+    
+    <label for="pchumlb">Ignore paragraph gaps between pesterchum messages?</label><input type="checkbox" name="pchumlb" id="pchumlb">
     <button onclick="applyPesterchum()">Pesterchum Formats</button>
+    <br> <br>
+    <button onclick="generateFormats()">Generate Formats</button>
+    
   </div>
 
   <div id="pruned-output">

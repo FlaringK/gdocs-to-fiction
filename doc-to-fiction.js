@@ -150,7 +150,6 @@ let generateFormats = () => {
             var url = link.href.substring(29, link.href.indexOf("&", 29))
             replaceLink = replaceLink.replace("%INPUT%", url)
             spanText = spanText.replace(link.innerText, replaceLink)
-            console.log(spanText)
           }
 
           // Apply tags
@@ -220,12 +219,16 @@ let generateFormats = () => {
 // PESTERCHUM Formatting //
 ///////////////////////////
 
-var ignorePchumLinebreaks = true
+
 
 var PstartString = "pchumStart_flaringKisCool"
 var PendString = "pchumEnd_flaringKisCool"
 
 let applyPesterchum = () => {
+
+  // Check options
+  var ignorePchumLinebreaks = document.getElementById("pchumlb").checked
+
   // Etch's correction
   fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("> ", "")
   fileOutput.appendChild(document.createElement("p"))
@@ -320,7 +323,6 @@ let applyPesterchum = () => {
 
       p.innerHTML = p.innerHTML.replaceAll("–", "--")
       for (const [key, value] of Object.entries(pesterchum)) {
-        console.log(key, value.handle)
         p.innerHTML = p.innerHTML.replaceAll(" " + key, key) 
         p.innerHTML = p.innerHTML.replaceAll(key + " ", key) 
         p.innerHTML = p.innerHTML.replaceAll(key, " " + value.handle + " [" + key + "] ")
