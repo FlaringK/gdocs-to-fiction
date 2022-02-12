@@ -150,14 +150,63 @@ body > p, #file-preview {
   white-space: pre-line;
 }
 
+/* Tool tip */
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted var(--c5); /* If you want dots under the hoverable text */
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: var(--c5);
+  color: var(--c1);
+  text-align: left;
+  padding: .5em 1em;
+  border-radius: 6px;
+
+  font-size: 11pt;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+
+  width: 300px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -150px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.pchumExample {
+  background: white;
+  border: black solid;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+
+  color: black;
+  padding: 0.5em 1em;
+}
+
+.pchumExample p {
+  margin: 0;
+}
+
 /* Pesterchum */
 
 .pchum {
   border: 1px dashed gray;
   border-top: none;
   border-bottom: none;
-  padding: 0 19px;
+  padding: 0 1em;
   background: #eee;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
 }
 
 .pchumEnd {
@@ -165,7 +214,7 @@ body > p, #file-preview {
   border-top: none;
   background: #eee;
   color: transparent;
-  height: 19px;
+  height: 1em;
 }
 
 .pchumStart {
@@ -173,5 +222,5 @@ body > p, #file-preview {
   border-bottom: none;
   background: #eee;
   color: transparent;
-  height: 19px;
+  height: 1em;
 }

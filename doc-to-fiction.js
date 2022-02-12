@@ -316,6 +316,8 @@ let applyPesterchum = () => {
         p.prepend(spanHandle)
       }
 
+      p.innerHTML = p.innerHTML.replaceAll("~:", ":")
+
       p.classList += " pchum"
       is_pchum = true
     }
@@ -334,6 +336,7 @@ let applyPesterchum = () => {
         p.innerHTML = p.innerHTML.replaceAll(key + " ", key) 
         p.innerHTML = p.innerHTML.replaceAll(key, " " + value.handle + " [" + key + "] ")
         p.innerHTML = p.innerHTML.replaceAll(" [" + key + "] ", "</span> <span class='notif" + key + "' style='color:" + value.color + "'>[" + key + "]</span><span> ")
+        p.innerHTML = p.innerHTML.replaceAll("~", "")
       }
 
       var spans = p.querySelectorAll("span")
