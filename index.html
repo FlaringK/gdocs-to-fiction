@@ -26,10 +26,14 @@
     <input type="file" id="file-input" accept="application/zip">
     <div id="file-output"></div>
     
-    <label for="pchumlb">Ignore paragraph gaps between pesterchum messages?</label><input type="checkbox" name="pchumlb" id="pchumlb"><br>
+    <label for="pchumlb">Ignore paragraph gaps between pesterchum messages: </label><input type="checkbox" name="pchumlb" id="pchumlb"><br>
     <button onclick="applyPesterchum()" id="aplPchum">Auto apply pesterlog formatting</button>
     <div class="tooltip">(?)
-      <span class="tooltiptext">This will add formatting to the original Gdoc to emulate a pesterlog from the webcomic homestuck. <br> <br> As of right now it will only detect the beta kid's and troll's handles, it will also detect the alpha kid's handles if a "~" is added at the end of the handle.
+      <span class="tooltiptext">This will add formatting to the original Gdoc to emulate a pesterlog from the webcomic homestuck. 
+        <br> <br> 
+        As of right now it will only detect the beta kid's and troll's handles, it will also detect the alpha kid's handles if a "~" is added at the end of the handle. 
+        <br> <br>
+        It will also detect notifications, so long as the line of text both begins and ends with "--"
       </span>
     </div> 
     <div class="tooltip">(example)
