@@ -207,6 +207,7 @@ let generateFormats = () => {
   var ao3 = document.getElementById("Basic_HTML").cloneNode(true)
   ao3.innerHTML = ao3.innerHTML.replace("Basic_HTML", "AO3 HTML")
   ao3.innerHTML = ao3.innerHTML.replaceAll("<span style='font-family:Courier New'>", "")
+  ao3.id = "ao3_Html"
   
   for (const [key, value] of Object.entries(pesterchum)) {
     ao3.innerHTML = ao3.innerHTML.replaceAll("style='color:" + value.color + "'", "class=\"" + value.ao3 + "\"")
@@ -215,16 +216,23 @@ let generateFormats = () => {
   prunedOutput.appendChild(ao3)
 }
 
-/////////////////////
-// Auto Formatting //
-/////////////////////
+///////////////////////////
+// PESTERCHUM Formatting //
+///////////////////////////
+
+var ignorePchumLinebreaks = true
 
 var PstartString = "pchumStart_flaringKisCool"
 var PendString = "pchumEnd_flaringKisCool"
 
 let applyPesterchum = () => {
+  // Etch's correction
+  fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("> ", "")
+  fileOutput.appendChild(document.createElement("p"))
+
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
 
+  // Add pchum start and end
   let addPchumStart = pIndex => {
     var pchumStart = document.createElement("p")
     var pspan = document.createElement('span')
@@ -244,57 +252,66 @@ let applyPesterchum = () => {
     paragraphs[pIndex].parentNode.insertBefore(pchumEnd, paragraphs[pIndex])
   }
 
+  // Check if p is message or notification
+  let isPchumMessage = pIndex => {
+    var p = paragraphs[pIndex]
+    return pesterchum[p.innerText.substring(0, p.innerText.indexOf(":"))]
+  }
+  let isPchumNotifcation = pIndex => {
+    var p = paragraphs[pIndex]
+    return (p.innerText.substring(0, 2) == "--" || p.innerText[0] == "–") && 
+    (p.innerText.substring(p.innerText.length - 2, p.innerText.length) == "--" || p.innerText[p.innerText.length - 1] == "–")
+  }
+
+  // Format each paragraph
   var was_pchum = false
   var is_pchum = false
-  paragraphs.forEach((p, i) => {
+  for (let i = 0; i < paragraphs.length; i++) {
+    var p = paragraphs[i]
     was_pchum = is_pchum
     is_pchum = false
 
-    if (p.innerText.indexOf(":") + 1 == p.innerText.indexOf(" ")) {
+    // if the handle is logged give a color
+    if (isPchumMessage(i)) {
       var handle = p.innerText.substring(0, p.innerText.indexOf(":"))
+      var chumColor = pesterchum[handle].color
+      var chumHandle = handle.color
+      var is_quote = false
 
-      // if the handle is logged give a color
-      if (pesterchum[handle]) {
-        var chumColor = pesterchum[handle].color
-        var chumHandle = handle.color
-        var is_quote = false
-
-        //check for quote
-        for (const [key, value] of Object.entries(pesterchum)) {
-          if (p.innerText.includes(handle + ": " + key + ":")) {
-            is_quote = true
-            p.innerHTML = p.innerHTML.replace(handle + ": ", "")
-            chumColor = value.color
-            chumHandle = key
-          }
+      //check for quote
+      for (const [key, value] of Object.entries(pesterchum)) {
+        if (p.innerText.includes(handle + ": " + key + ":")) {
+          is_quote = true
+          p.innerHTML = p.innerHTML.replace(handle + ": ", "")
+          chumColor = value.color
+          chumHandle = key
         }
-
-        var spans = p.querySelectorAll("span")
-        spans.forEach(span => {
-          span.classList += chumHandle
-          span.style.color = chumColor
-          span.style.fontFamily = "Courier New"
-          span.style.fontWeight = "600"
-        })
-
-        if (is_quote) {
-          var spanHandle = document.createElement("span")
-          spanHandle.innerText = handle + ": "
-          spanHandle.style.color = pesterchum[handle].color
-          spanHandle.style.fontFamily = "Courier New"
-          spanHandle.style.fontWeight = "600"
-          spanHandle.classList = handle
-          p.prepend(spanHandle)
-        }
-
-        p.classList += " pchum"
-        is_pchum = true
       }
+
+      var spans = p.querySelectorAll("span")
+      spans.forEach(span => {
+        span.classList += chumHandle
+        span.style.color = chumColor
+        span.style.fontFamily = "Courier New"
+        span.style.fontWeight = "600"
+      })
+
+      if (is_quote) {
+        var spanHandle = document.createElement("span")
+        spanHandle.innerText = handle + ": "
+        spanHandle.style.color = pesterchum[handle].color
+        spanHandle.style.fontFamily = "Courier New"
+        spanHandle.style.fontWeight = "600"
+        spanHandle.classList = handle
+        p.prepend(spanHandle)
+      }
+
+      p.classList += " pchum"
+      is_pchum = true
     }
 
     // If handle is notification (Has -- at the start and end)
-    if ((p.innerText.substring(0, 2) == "--" || p.innerText[0] == "–") && 
-      (p.innerText.substring(p.innerText.length - 2, p.innerText.length) == "--" || p.innerText[p.innerText.length - 1] == "–")) {
+    if (isPchumNotifcation(i)) {
       
       p.classList += " pchum"
 
@@ -320,6 +337,14 @@ let applyPesterchum = () => {
       is_pchum = true
     }
 
+    // If ignorePchumLinebreaks remove blank ps between messages
+    if (ignorePchumLinebreaks && i < paragraphs.length - 1) {
+      if (is_pchum && paragraphs[i + 1].innerText == "" && (isPchumMessage(i + 2) || isPchumNotifcation(i + 2))) {
+        paragraphs[i + 1].remove()
+        i += 1
+      }
+    }
+
     if (was_pchum !== is_pchum) {
       if (is_pchum) {
         addPchumStart(i)
@@ -327,5 +352,5 @@ let applyPesterchum = () => {
         addPchumEnd(i)
       }
     }
-  })
+  }
 }

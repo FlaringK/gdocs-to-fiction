@@ -73,7 +73,7 @@
         ["<h5>", "</h5>"], 
         ["<h6>", "</h6>"] 
       ],
-
+ 
       "pchum": ["<div class='block pchum'>", "</div>"]
     }
   ],
@@ -97,6 +97,87 @@
       "color": "#4ac925",
       "ao3": "jade",
       "handle": "gardenGnostic"
+    },
+    "GT~": {
+      "color": "#1f9400",
+      "ao3": "jake",
+      "handle": "golgothasTerror"
+    },
+    "TT~": {
+      "color": "#f2a400",
+      "ao3": "dirk",
+      "handle": "timaeusTestified"
+    },
+    "TG~": {
+      "color": "#f141ef",
+      "ao3": "roxy",
+      "handle": "tipsyGnostalgic"
+    },
+    "GG~": {
+      "color": "#00d5f2",
+      "ao3": "jane",
+      "handle": "gutsyGumshoe"
+    },
+
+    "GC": {
+      "color": "#008282",
+      "ao3": "pyrope",
+      "handle": ""
+    },
+    "GA": {
+      "color": "#008141",
+      "ao3": "maryam",
+      "handle": ""
+    },
+    "CG": {
+      "color": "#626262",
+      "ao3": "karkat",
+      "handle": ""
+    },
+    "CC": {
+      "color": "#77003c",
+      "ao3": "pexies",
+      "handle": ""
+    },
+    "CA": {
+      "color": "#6a006a",
+      "ao3": "ampora",
+      "handle": ""
+    },
+    "CT": {
+      "color": "#000056",
+      "ao3": "zahhak",
+      "handle": ""
+    },
+    "AG": {
+      "color": "#005682",
+      "ao3": "serket",
+      "handle": ""
+    },
+    "AC": {
+      "color": "#416600",
+      "ao3": "leijon",
+      "handle": ""
+    },
+    "AA": {
+      "color": "#a10000",
+      "ao3": "megido",
+      "handle": ""
+    },
+    "AT": {
+      "color": "#a15000",
+      "ao3": "nitram",
+      "handle": ""
+    },
+    "TC": {
+      "color": "#2b0057",
+      "ao3": "makara",
+      "handle": ""
+    },
+    "TA": {
+      "color": "#a1a100",
+      "ao3": "captor",
+      "handle": ""
     }
   }
 }
