@@ -29,6 +29,7 @@ function getEntries(file, options) {
 
 // Get formats
 var formats
+var ao3Classes
 
 var autochum = {}
 var userchum = {}
@@ -36,6 +37,7 @@ var userchum = {}
 var pesterchum
 fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => {
   formats = jsondata.formats
+  ao3Classes = jsondata.ao3Classes
   autochum = jsondata.pesterchum
   userchum = JSON.parse(localStorage.getItem("userchum"))
 
@@ -232,8 +234,8 @@ let generateFormats = () => {
   ao3.innerHTML = ao3.innerHTML.replaceAll("<span style='font-family:Courier New'>", "")
   ao3.id = "ao3_Html"
   
-  for (const [key, value] of Object.entries(pesterchum)) {
-    ao3.innerHTML = ao3.innerHTML.replaceAll("style='color:" + value.color + "'", "class=\"" + value.ao3 + "\"")
+  for (const [key, value] of Object.entries(ao3Classes)) {
+    ao3.innerHTML = ao3.innerHTML.replaceAll("style='color:" + value + "'", "class=\"" + key + "\"")
   }
 
   prunedOutput.appendChild(ao3)

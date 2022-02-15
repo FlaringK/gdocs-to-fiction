@@ -226,5 +226,31 @@
     "TA": ["Sollux", "Mituna", "PTA", "CTA", "FTA"],
 
     "KANKRI": ["Squarewave"]
+  },
+  "ao3Classes": {
+    "john": "#0715cd",
+    "rose": "#b536da",
+    "dave": "#e00707",
+    "jade": "#4ac925",
+    "jane": "#00d5f2",
+    "jake": "#1f9400",
+    "roxy": "#f141ef",
+    "dirk": "#f2a400",
+    "karkat": "#626262",
+    "kankri": "#ff0000",
+    "megido": "#a10000",
+    "nitram": "#a15000",
+    "captor": "#a1a100",
+    "leijon": "#416600",
+    "maryam": "#008141",
+    "pyrope": "#008282",
+    "serket": "#005682",
+    "zahhak": "#000056",
+    "makara": "#2b0057",
+    "ampora": "#6a006a",
+    "pexies": "#77003c",
+    "calliope": "#929292",
+    "caliborn": "#323232",
+    "docscratch": "#ffffff"
   }
 }
