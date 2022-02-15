@@ -74,7 +74,7 @@ let createTags = (style, spanClass) => {
     // Assign outside of decotags tags
     if (style.fontStyle == "italic") { pushBasicFormat("italic") }
     if (style.fontWeight == 700) { pushBasicFormat("bold") }
-    if (style.fontFamily !== "\"Arial\"") { 
+    if (style.fontFamily !== "\"Arial\"" || style.fontFamily !== "Arial") { 
       var fontTagPair = [formats[i]["font"][0], formats[i]["font"][1]]
       fontTagPair[0] = fontTagPair[0].replace("%INPUT%", style.fontFamily)
       fTags.push(fontTagPair)
@@ -239,6 +239,7 @@ let applyPesterchum = () => {
   var ignorePchumLinebreaks = document.getElementById("pchumlb").checked
 
   // Correction
+  fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("> ", "")
   fileOutput.appendChild(document.createElement("p"))
 
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
