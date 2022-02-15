@@ -35,7 +35,7 @@ var autochum = {}
 var userchum = {}
 
 var pesterchum
-fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => {
+fetch("formats.json").then(response => { return response.json(); }).then(jsondata => {
   formats = jsondata.formats
   ao3Classes = jsondata.ao3Classes
   autochum = jsondata.pesterchum
