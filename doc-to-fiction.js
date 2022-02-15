@@ -35,11 +35,11 @@ var autochum = {}
 var userchum = {}
 
 var pesterchum
-fetch("formats.json").then(response => { return response.json(); }).then(jsondata => {
+fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => {
   formats = jsondata.formats
   ao3Classes = jsondata.ao3Classes
   autochum = jsondata.pesterchum
-  userchum = JSON.parse(localStorage.getItem("userchum"))
+  userchum = JSON.parse(localStorage.getItem("userchum")) ? JSON.parse(localStorage.getItem("userchum")) : {}
 
   for (const [key, value] of Object.entries(autochum)) {
     if (jsondata.pchumNames[key]) {
@@ -49,6 +49,7 @@ fetch("formats.json").then(response => { return response.json(); }).then(jsondat
     }
   }
 
+  
   for (const [key, value] of Object.entries(userchum)) {
     addChar(key, value.color)
   }
