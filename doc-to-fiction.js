@@ -14,7 +14,7 @@ fileInput.onchange = async () => {
     new zip.TextWriter(),
   );
   // gdHtml contains the entry data as a String
-  fileOutput.innerHTML = gdHtml
+  fileOutput.innerHTML = gdHtml.replaceAll("&amp;lt;", "&lt;")
 }
 
 function getEntries(file, options) {
@@ -124,6 +124,9 @@ let generateFormats = () => {
 
   // Contains tags for the style of each class of span
   var classStyles = {}
+  
+  // replace divs
+  fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("<div", "<p").replaceAll("div>", "p>")
 
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
   paragraphs.forEach(p => {
@@ -195,6 +198,7 @@ let generateFormats = () => {
   // Output to page
   console.log(classStyles)
   output.forEach((e, i) => {
+
     // Replace Pchums
     e = e.replaceAll(formats[i].headings[0][0] + PstartString + formats[i].headings[0][1], formats[i].pchum[0])
     e = e.replaceAll(formats[i].headings[0][0] + PendString + formats[i].headings[0][1], formats[i].pchum[1])
@@ -247,22 +251,22 @@ let applyPesterchum = () => {
 
   // Add pchum start and end
   let addPchumStart = pIndex => {
-    var pchumStart = document.createElement("p")
+    var pchumStart = document.createElement("div")
     var pspan = document.createElement('span')
     pchumStart.classList = "pchumStart"
     pspan.innerText = PstartString
 
     pchumStart.appendChild(pspan)
-    fileOutput.insertBefore(pchumStart, paragraphs[pIndex])
+    paragraphs[pIndex].before(pchumStart)
   }
   let addPchumEnd = pIndex => {
-    var pchumEnd = document.createElement("p")
+    var pchumEnd = document.createElement("div")
     var pspan = document.createElement('span')
     pchumEnd.classList = "pchumEnd"
     pspan.innerText = PendString
 
     pchumEnd.appendChild(pspan)
-    fileOutput.insertBefore(pchumEnd, paragraphs[pIndex])
+    paragraphs[pIndex].before(pchumEnd)
   }
 
   // Check if p is message or notification
@@ -280,9 +284,9 @@ let applyPesterchum = () => {
   //Remvoe paragraphs
   if (arrowremove) {
     for (let i = 0; i < paragraphs.length; i++) {
-      if (paragraphs[i].innerText.substring(0, 2) == "> ") {
-        paragraphs[i].innerHTML = paragraphs[i].innerHTML.replace("&gt; ", "")
-        console.log(paragraphs[i].innerHTML)
+      if (paragraphs[i].innerText.substring(0, 2) == "> " || paragraphs[i].innerText.substring(0, 2) == "*> ") {
+        paragraphs[i].innerHTML = paragraphs[i].innerHTML.replace("&gt; ", "").replace("*&gt; ", "")
+        if (!paragraphs[i].innerText.includes(":")) { paragraphs[i].innerHTML = "<span>-- </span>" + paragraphs[i].innerHTML + "<span> --</span>"}
         paragraphs[i + 1].remove()
         i += 1
       }
@@ -305,6 +309,8 @@ let applyPesterchum = () => {
       var chumColor = pesterchum[handle].color
       var chumHandle = handle.color
       var is_quote = false
+
+      if (handle == "AC") {console.log(p.innerHTML)}
 
       //check for quote
       for (const [key, value] of Object.entries(pesterchum)) {
@@ -352,7 +358,7 @@ let applyPesterchum = () => {
       for (const [key, value] of Object.entries(pesterchum)) {
         p.innerHTML = p.innerHTML.replaceAll(" " + key, key) 
         p.innerHTML = p.innerHTML.replaceAll(key + " ", key) 
-        p.innerHTML = p.innerHTML.replaceAll(key, " " + value.handle + " [" + key + "] ")
+        p.innerHTML = p.innerHTML.replaceAll(" " + key + " ", " " + value.handle + " [" + key + "] ")
         p.innerHTML = p.innerHTML.replaceAll(" [" + key + "] ", "</span> <span class='notif" + key + "' style='color:" + value.color + "'>[" + key + "]</span><span> ")
         p.innerHTML = p.innerHTML.replaceAll("~]", "]")
       }
