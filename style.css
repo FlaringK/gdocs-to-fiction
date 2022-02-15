@@ -77,7 +77,7 @@ body > h1 {
   border: none;
 }
 
-#genFormat, #aplPchum {
+#file-input, button {
   background: var(--c4);
   color: var(--c1);
   font-size: unset;
@@ -91,9 +91,10 @@ body > h1 {
   box-shadow: -1px 2px var(--c3), -2px 4px var(--c3);
   
   cursor: pointer;
+  margin: 0.1em
 }
 
-#genFormat:active, #aplPchum:active {
+button:active {
   box-shadow: none;
   transform: translate(-2px, 4px);
   
@@ -117,7 +118,7 @@ body > p, #file-preview {
   border: var(--c5) solid;
   height: 20em;
   overflow: auto;
-  margin-top: 1em;
+  margin-top: 0.5em;
   margin-bottom: 0.5em;
 
   font-weight: 400;
@@ -135,7 +136,7 @@ body > p, #file-preview {
 #pruned-output > div {
   padding: 1em;
   margin-bottom: 1em;
-  min-width: 450px;
+  min-width: 40vw;
 
   border: var(--c3) solid;
   border-radius: 0.5em;
@@ -149,6 +150,13 @@ body > p, #file-preview {
   resize: none;
   height: 20em;
   white-space: pre-line;
+}
+
+.optionWrap {
+  border: var(--c3) solid;
+  border-radius: 0.5em;
+  box-shadow: -1px 2px var(--c3), -2px 4px var(--c3);
+  padding: 0.5em
 }
 
 /* Tool tip */
@@ -224,4 +232,55 @@ body > p, #file-preview {
   background: #eee;
   color: transparent;
   height: 1em;
+}
+
+/* Popup */
+
+.popup-closed {
+  display: none;
+}
+
+.popup-open {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+    
+  border: var(--c3) solid;
+  border-radius: 0.5em;
+  box-shadow: -1px 2px var(--c3), -2px 4px var(--c3);
+  padding: 0.5em;
+  background: var(--c1)
+}
+
+.backdrop {
+  display: none;
+}
+
+.popup-open ~ .backdrop {
+  position: fixed;
+  z-index: 9;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: black;
+  opacity: 0.5;
+  display: block;
+}
+
+#customChars input {
+  border: var(--c3) solid;
+  border-radius: 0.5em;
+  box-shadow: -1px 2px var(--c3), -2px 4px var(--c3);
+  box-sizing: border-box;
+  height: 2em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#customChars button {
+  height: 1.8em;
+  box-sizing: border-box;
+}
+
+#customChars div {
+  padding: 0.5em;
 }

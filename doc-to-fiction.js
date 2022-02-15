@@ -23,24 +23,35 @@ function getEntries(file, options) {
 
 
 
-/////////////////
-// ASSIGN TAGS //
-/////////////////
+////////////////////////////
+// ASSIGN TAGS TO CLASSES //
+////////////////////////////
 
 // Get formats
 var formats
+
+var autochum = {}
+var userchum = {}
+
 var pesterchum
 fetch("./formats.json").then(response => { return response.json(); }).then(jsondata => {
   formats = jsondata.formats
-  pesterchum = jsondata.pesterchum
+  autochum = jsondata.pesterchum
+  userchum = JSON.parse(localStorage.getItem("userchum"))
 
-  for (const [key, value] of Object.entries(pesterchum)) {
+  for (const [key, value] of Object.entries(autochum)) {
     if (jsondata.pchumNames[key]) {
       jsondata.pchumNames[key].forEach(dupKey => {
-        pesterchum[dupKey.toUpperCase()] = value
+        autochum[dupKey.toUpperCase()] = value
       })
     }
   }
+
+  for (const [key, value] of Object.entries(userchum)) {
+    addChar(key, value.color)
+  }
+
+  pesterchum = Object.assign({}, autochum, userchum)
 
   generateFormats()
 });
@@ -111,9 +122,9 @@ let createTags = (style, spanClass) => {
 
 
 
-/////////////////////
-// Genrate formats //
-/////////////////////
+//////////////////////
+// GENERATE FORMATS //
+//////////////////////
 
 let generateFormats = () => {
   prunedOutput.innerHTML = ""
@@ -229,10 +240,8 @@ let generateFormats = () => {
 }
 
 ///////////////////////////
-// PESTERCHUM Formatting //
+// PESTERCHUM FORMATTING //
 ///////////////////////////
-
-
 
 var PstartString = "pchumStart_flaringKisCool"
 var PendString = "pchumEnd_flaringKisCool"
@@ -386,4 +395,60 @@ let applyPesterchum = () => {
       }
     }
   }
+}
+
+///////////////////////
+// CUSTOM CHARACTERS //
+///////////////////////
+
+let addChar = (inputName, inputColor) => {
+  var charWrap = document.getElementById("customChars")
+
+  var div = document.createElement("div")
+
+  var name = document.createElement("input")
+  name.placeholder = "Enter name"
+  name.oninput = () => {name.value = name.value.toUpperCase()}
+  name.id = "chumName"
+  if (inputName) {name.value = inputName}
+
+  var color = document.createElement("input")
+  color.type = "color"
+  color.id = "chumColor"
+  if (inputColor) {color.value = inputColor}
+
+  var removeBtn = document.createElement("button")
+  removeBtn.innerText = "X"
+  removeBtn.onclick = () => {removeBtn.parentNode.remove()}
+
+  div.appendChild(name)
+  div.appendChild(color)
+  div.appendChild(removeBtn)
+
+  charWrap.appendChild(div)
+}
+
+let updateUserChums = () => {
+
+  userchum = {}
+
+  var charWrap = document.getElementById("customChars")
+  var characters = charWrap.querySelectorAll("div")
+
+  characters.forEach(div => {
+    userchum[div.querySelector("#chumName").value] = {
+      "color": div.querySelector("#chumColor").value,
+      "ao3": "",
+      "handle": ""
+    }
+  })
+
+  localStorage.setItem('userchum', JSON.stringify(userchum));
+
+  userchum = JSON.parse(localStorage.getItem("userchum"))
+
+  console.log(userchum)
+
+  pesterchum = Object.assign({}, autochum, userchum)
+
 }

@@ -24,48 +24,74 @@
   <br>
   <div id="file-preview"> 
     <input type="file" id="file-input" accept="application/zip">
+    <br><br>
+    <u style="font-size: larger; font-style: italic;">Preview</u>
     <div id="file-output"></div>
     
-    <label for="pchumlb">Ignore paragraph gaps between pesterchum messages: </label><input type="checkbox" name="pchumlb" id="pchumlb"><br>
-    <label for="pchumlb">Remove "> " before pchum messages: </label><input type="checkbox" name="arrowremove" id="arrowremove"><br>
-    <button onclick="applyPesterchum()" id="aplPchum">Auto apply pesterlog formatting</button>
-    <div class="tooltip">(?)
-      <span class="tooltiptext">This will add formatting to the original Gdoc to emulate a pesterlog from the webcomic homestuck. 
-        <br> <br> 
-        Automatically it will detect all Homestuck chumhandles and the names of all homstuck characters who talk. 
-        <br> <br>
-        The alpha kids handle colours can be accessed by adding a "~" to the end of their handle. This is also how to switch between Calliope and Caliborn.
-        <br> <br>
-        It will also detect notifications, so long as the line of text both begins and ends with "--".
-      </span>
-    </div> 
-    <div class="tooltip">(example)
-      <span class="tooltiptext">
-        Before:
-        <div class="pchumExample">
-          <p>And so they started a converation</p>
-          <p>TT: Hello I am Rose</p>
-          <p>GG: hello i am jade</p>
-          <p>TT~: Hello I am Dirk</p>
-          <p>KARKAT: HELLO I AM KARKAT</p>
-          <p>AA: hell0 i am aradia 0u0</p>
-          <p>It was a very cool converstation</p>
+    <div class="optionWrap">
+      <u style="font-size: larger; font-style: italic;">Homestuck formatting</u><br>
+      <div class="tooltip">(What is this?)
+        <span class="tooltiptext">This will add formatting to the original Gdoc to emulate a pesterlog from the webcomic homestuck. 
+          <br> <br> 
+          Automatically it will detect all Homestuck chumhandles and the names of all homstuck characters who talk. 
+          <br> <br>
+          The alpha kids handle colours can be accessed by adding a "~" to the end of their handle. This is also how to switch between Calliope and Caliborn.
+          <br> <br>
+          It will also detect notifications, so long as the line of text both begins and ends with "--".
+        </span>
+      </div> 
+      <div class="tooltip">(example)
+        <span class="tooltiptext">
+          Before:
+          <div class="pchumExample">
+            <p>And so they started a converation</p>
+            <p>TT: Hello I am Rose</p>
+            <p>GG: hello i am jade</p>
+            <p>TT~: Hello I am Dirk</p>
+            <p>KARKAT: HELLO I AM KARKAT</p>
+            <p>AA: hell0 i am aradia 0u0</p>
+            <p>It was a very cool converstation</p>
+          </div>
+        After:
+          <div class="pchumExample">
+            <p>And so they started a converation</p>
+            <p class="pchumStart"></p>
+            <p class="pchum" style="color: #b536da">TT: Hello I am Rose</p>
+            <p class="pchum" style="color: #4ac925">GG: hello i am jade</p>
+            <p class="pchum" style="color: #f2a400">TT: Hello I am Dirk</p>
+            <p class="pchum" style="color: #626262">KARKAT: HELLO I AM KARKAT</p>
+            <p class="pchum" style="color: #a10000">AA: hell0 i am aradia 0u0</p>
+            <p class="pchumEnd"></p>
+            <p>It was a very cool converstation</p>
+          </div>
+        </span>
+      </div> 
+
+      <br><br>
+
+      <button id="addChar" onclick="this.nextSibling.nextSibling.classList = 'popup-open'">Add custom characters</button>
+      <div class="popup-closed">
+        <u style="font-size: larger; font-style: italic;">Add custom characters</u> <br>
+
+        <div class="optionWrap" style="min-height: 200px; max-height: 60vh; width: 80vw; overflow: auto; margin: 0.5em;">
+          <div id="customChars"></div>
+          <button onclick="addChar()">+</button>
         </div>
-       After:
-        <div class="pchumExample">
-          <p>And so they started a converation</p>
-          <p class="pchumStart"></p>
-          <p class="pchum" style="color: #b536da">TT: Hello I am Rose</p>
-          <p class="pchum" style="color: #4ac925">GG: hello i am jade</p>
-          <p class="pchum" style="color: #f2a400">TT: Hello I am Dirk</p>
-          <p class="pchum" style="color: #626262">KARKAT: HELLO I AM KARKAT</p>
-          <p class="pchum" style="color: #a10000">AA: hell0 i am aradia 0u0</p>
-          <p class="pchumEnd"></p>
-          <p>It was a very cool converstation</p>
-        </div>
-      </span>
-    </div> 
-    <br> <br>
+        <button onclick="updateUserChums()">Save</button>
+        <button onclick="this.parentNode.classList = 'popup-closed'">Done!</button>
+      </div>
+      <div class="backdrop"></div>
+
+      <br><br>
+
+      <label for="pchumlb">Ignore paragraph gaps between pesterchum messages: </label><input type="checkbox" name="pchumlb" id="pchumlb"><br>
+      <label for="arrowremove">Remove "> " before pchum messages: </label><input type="checkbox" name="arrowremove" id="arrowremove">
+      
+      <br><br>
+
+      <button onclick="applyPesterchum()" id="aplPchum">Auto apply pesterlog formatting</button>
+    </div>
+    <br> 
     <button onclick="generateFormats()" id="genFormat">Generate Formats</button>
     
   </div>
