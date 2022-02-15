@@ -74,7 +74,7 @@ let createTags = (style, spanClass) => {
     // Assign outside of decotags tags
     if (style.fontStyle == "italic") { pushBasicFormat("italic") }
     if (style.fontWeight == 700) { pushBasicFormat("bold") }
-    if (style.fontFamily !== "\"Arial\"" || style.fontFamily !== "Arial") { 
+    if (!(style.fontFamily == "\"Arial\"" || style.fontFamily == "Arial")) { 
       var fontTagPair = [formats[i]["font"][0], formats[i]["font"][1]]
       fontTagPair[0] = fontTagPair[0].replace("%INPUT%", style.fontFamily)
       fTags.push(fontTagPair)
@@ -237,6 +237,7 @@ let applyPesterchum = () => {
 
   // Check options
   var ignorePchumLinebreaks = document.getElementById("pchumlb").checked
+  var arrowremove = document.getElementById("arrowremove").checked
 
   // Correction
   fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("> ", "")
@@ -276,6 +277,20 @@ let applyPesterchum = () => {
     && p.innerText.includes(" ")
   }
 
+  //Remvoe paragraphs
+  if (arrowremove) {
+    for (let i = 0; i < paragraphs.length; i++) {
+      if (paragraphs[i].innerText.substring(0, 2) == "> ") {
+        paragraphs[i].innerHTML = paragraphs[i].innerHTML.replace("&gt; ", "")
+        console.log(paragraphs[i].innerHTML)
+        paragraphs[i + 1].remove()
+        i += 1
+      }
+    }
+  }
+
+  paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
+
   // Format each paragraph
   var was_pchum = false
   var is_pchum = false
@@ -283,13 +298,6 @@ let applyPesterchum = () => {
     var p = paragraphs[i]
     was_pchum = is_pchum
     is_pchum = false
-
-    // Remove "> " for Etch
-    if (p.innerText.substring(0, 2) == "> ") {
-      if (isPchumMessage(i, true) || isPchumNotifcation(i, true)) {
-        p.innerHTML = p.innerHTML.replace("&gt; ", "")
-      }
-    }
 
     // if the handle is logged give a color
     if (isPchumMessage(i)) {
@@ -359,19 +367,20 @@ let applyPesterchum = () => {
       is_pchum = true
     }
 
-    // If ignorePchumLinebreaks remove blank ps between messages
-    if (ignorePchumLinebreaks && i < paragraphs.length - 1) {
-      if (is_pchum && paragraphs[i + 1].innerText == "" && (isPchumMessage(i + 2) || isPchumMessage(i + 2, true) || isPchumNotifcation(i + 2) || isPchumNotifcation(i + 2, true))) {
-        paragraphs[i + 1].remove()
-        paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
-      }
-    }
-
+    // Create end or start
     if (was_pchum !== is_pchum) {
       if (is_pchum) {
         addPchumStart(i)
       } else {
         addPchumEnd(i)
+      }
+    }
+
+    // If ignorePchumLinebreaks remove blank ps between messages
+    if (ignorePchumLinebreaks && i < paragraphs.length - 1) {
+      if (is_pchum && paragraphs[i + 1].innerText == "" && (isPchumMessage(i + 2) || isPchumMessage(i + 2, true) || isPchumNotifcation(i + 2) || isPchumNotifcation(i + 2, true))) {
+        paragraphs[i + 1].remove()
+        paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
       }
     }
   }
