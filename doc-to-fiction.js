@@ -363,7 +363,7 @@ let applyPesterchum = () => {
     if (ignorePchumLinebreaks && i < paragraphs.length - 1) {
       if (is_pchum && paragraphs[i + 1].innerText == "" && (isPchumMessage(i + 2) || isPchumMessage(i + 2, true) || isPchumNotifcation(i + 2) || isPchumNotifcation(i + 2, true))) {
         paragraphs[i + 1].remove()
-        i += 2
+        paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
       }
     }
 
