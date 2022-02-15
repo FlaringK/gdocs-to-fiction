@@ -244,7 +244,7 @@ let applyPesterchum = () => {
   var arrowremove = document.getElementById("arrowremove").checked
 
   // Correction
-  fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("> ", "")
+  fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("<br>", "</span></p><p><span>")
   fileOutput.appendChild(document.createElement("p"))
 
   var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
@@ -287,8 +287,6 @@ let applyPesterchum = () => {
       if (paragraphs[i].innerText.substring(0, 2) == "> " || paragraphs[i].innerText.substring(0, 2) == "*> ") {
         paragraphs[i].innerHTML = paragraphs[i].innerHTML.replace("&gt; ", "").replace("*&gt; ", "")
         if (!paragraphs[i].innerText.includes(":")) { paragraphs[i].innerHTML = "<span>-- </span>" + paragraphs[i].innerHTML + "<span> --</span>"}
-        paragraphs[i + 1].remove()
-        i += 1
       }
     }
   }
@@ -309,8 +307,6 @@ let applyPesterchum = () => {
       var chumColor = pesterchum[handle].color
       var chumHandle = handle.color
       var is_quote = false
-
-      if (handle == "AC") {console.log(p.innerHTML)}
 
       //check for quote
       for (const [key, value] of Object.entries(pesterchum)) {

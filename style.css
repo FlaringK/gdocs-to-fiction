@@ -122,6 +122,7 @@ body > p, #file-preview {
 
   font-weight: 400;
   font-family: "Arial";
+  text-align: left;
 }
 
 #pruned-output {
