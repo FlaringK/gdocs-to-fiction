@@ -360,7 +360,7 @@ let applyPesterchum = () => {
 
     // If ignorePchumLinebreaks remove blank ps between messages
     if (ignorePchumLinebreaks && i < paragraphs.length - 1) {
-      if (is_pchum && paragraphs[i + 1].innerText == "" && (isPchumMessage(i + 2) || isPchumNotifcation(i + 2))) {
+      if (is_pchum && paragraphs[i + 1].innerText == "" && (isPchumMessage(i + 2) || isPchumMessage(i + 2, true) || isPchumNotifcation(i + 2) || isPchumNotifcation(i + 2, true))) {
         paragraphs[i + 1].remove()
         i += 1
       }
