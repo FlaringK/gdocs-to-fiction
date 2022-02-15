@@ -251,7 +251,7 @@ let applyPesterchum = () => {
     pspan.innerText = PstartString
 
     pchumStart.appendChild(pspan)
-    paragraphs[pIndex].parentNode.insertBefore(pchumStart, paragraphs[pIndex])
+    fileOutput.insertBefore(pchumStart, paragraphs[pIndex])
   }
   let addPchumEnd = pIndex => {
     var pchumEnd = document.createElement("p")
@@ -260,7 +260,7 @@ let applyPesterchum = () => {
     pspan.innerText = PendString
 
     pchumEnd.appendChild(pspan)
-    paragraphs[pIndex].parentNode.insertBefore(pchumEnd, paragraphs[pIndex])
+    fileOutput.insertBefore(pchumEnd, paragraphs[pIndex])
   }
 
   // Check if p is message or notification
