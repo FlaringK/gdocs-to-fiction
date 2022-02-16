@@ -88,7 +88,7 @@ let createTags = (style, spanClass) => {
     // Assign outside of decotags tags
     if (style.fontStyle == "italic") { pushBasicFormat("italic") }
     if (style.fontWeight == 700) { pushBasicFormat("bold") }
-    if (!(style.fontFamily == "\"Arial\"" || style.fontFamily == "Arial")) { 
+    if (!style.fontFamily.includes("Arial")) { 
       var fontTagPair = [formats[i]["font"][0], formats[i]["font"][1]]
       fontTagPair[0] = fontTagPair[0].replace("%INPUT%", style.fontFamily)
       fTags.push(fontTagPair)
