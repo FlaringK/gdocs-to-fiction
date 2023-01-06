@@ -198,10 +198,13 @@ let generateFormats = () => {
 
       })
 
+      console.log(classStyles)
+
       // Add closing paragraph tag
       for (let i = 0; i < formats.length; i++) { 
         output[i] += formats[i].headings[headingNumber][1] + "\n"
       }
+
     } else { // if there's no text in the paragraph
       for (let i = 0; i < formats.length; i++) { 
         output[i] += "\n"
@@ -216,6 +219,14 @@ let generateFormats = () => {
     // Replace Pchums
     e = e.replaceAll(formats[i].headings[0][0] + PstartString + formats[i].headings[0][1], formats[i].pchum[0])
     e = e.replaceAll(formats[i].headings[0][0] + PendString + formats[i].headings[0][1], formats[i].pchum[1])
+
+    // html
+    e = e.replaceAll("<p><span style='color:#000000'>pchumStart_flaringKisCool</span></p>", formats[i].pchum[0])
+    e = e.replaceAll("<p><span style='color:#000000'>pchumEnd_flaringKisCool</span></p>", formats[i].pchum[1])
+
+    // bbcode
+    e = e.replace(/^.+\[spoiler\].+/gm, formats[i].pchum[0])
+    e = e.replace(/^.+\[\/spoiler\].+/gm, formats[i].pchum[1])
 
     // Create outputs
     var wrap = document.createElement("div")
@@ -317,7 +328,7 @@ let applyPesterchum = () => {
     if (isPchumMessage(i)) {
       var handle = p.innerText.substring(0, p.innerText.indexOf(":"))
       var chumColor = pesterchum[handle].color
-      var chumHandle = handle.color
+      var chumHandle = handle
       var is_quote = false
 
       //check for quote
