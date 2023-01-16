@@ -121,12 +121,12 @@
 
     "GC": {
       "color": "#008282",
-      "ao3": "pyrope",
+      "ao3": "terezi",
       "handle": ""
     },
     "GA": {
       "color": "#008141",
-      "ao3": "maryam",
+      "ao3": "kanaya",
       "handle": ""
     },
     "CG": {
@@ -136,47 +136,47 @@
     },
     "CC": {
       "color": "#77003c",
-      "ao3": "pexies",
+      "ao3": "feferi",
       "handle": ""
     },
     "CA": {
       "color": "#6a006a",
-      "ao3": "ampora",
+      "ao3": "eridan",
       "handle": ""
     },
     "CT": {
       "color": "#000056",
-      "ao3": "zahhak",
+      "ao3": "equius",
       "handle": ""
     },
     "AG": {
       "color": "#005682",
-      "ao3": "serket",
+      "ao3": "vriska",
       "handle": ""
     },
     "AC": {
       "color": "#416600",
-      "ao3": "leijon",
+      "ao3": "nepeta",
       "handle": ""
     },
     "AA": {
       "color": "#a10000",
-      "ao3": "megido",
+      "ao3": "aradia",
       "handle": ""
     },
     "AT": {
       "color": "#a15000",
-      "ao3": "nitram",
+      "ao3": "tavros",
       "handle": ""
     },
     "TC": {
       "color": "#2b0057",
-      "ao3": "makara",
+      "ao3": "gamzee",
       "handle": ""
     },
     "TA": {
       "color": "#a1a100",
-      "ao3": "captor",
+      "ao3": "sollux",
       "handle": ""
     },
 
@@ -238,17 +238,17 @@
     "dirk": "#f2a400",
     "karkat": "#626262",
     "kankri": "#ff0000",
-    "megido": "#a10000",
-    "nitram": "#a15000",
-    "captor": "#a1a100",
-    "leijon": "#416600",
-    "maryam": "#008141",
-    "pyrope": "#008282",
-    "serket": "#005682",
-    "zahhak": "#000056",
-    "makara": "#2b0057",
-    "ampora": "#6a006a",
-    "pexies": "#77003c",
+    "aradia": "#a10000",
+    "tavros": "#a15000",
+    "sollux": "#a1a100",
+    "nepeta": "#416600",
+    "kanaya": "#008141",
+    "terezi": "#008282",
+    "vriska": "#005682",
+    "equius": "#000056",
+    "gamzee": "#2b0057",
+    "eridan": "#6a006a",
+    "feferi": "#77003c",
     "calliope": "#929292",
     "caliborn": "#323232",
     "docscratch": "#ffffff"

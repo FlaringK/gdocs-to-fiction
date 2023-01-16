@@ -224,6 +224,12 @@ let generateFormats = () => {
     e = e.replaceAll("<p><span style='color:#000000'>pchumStart_flaringKisCool</span></p>", formats[i].pchum[0])
     e = e.replaceAll("<p><span style='color:#000000'>pchumEnd_flaringKisCool</span></p>", formats[i].pchum[1])
 
+    // remove <p> in block
+    e = e.replace(/<div class='block pchum'>((.|\n)+?)<\/div>/g, (match, p1) => {
+      match = match.replace(/<p>/g, "").replace(/<\/p>/g, "<br>")
+      return match
+    })
+
     // bbcode
     e = e.replace(/^.+\[spoiler\].+/gm, formats[i].pchum[0])
     e = e.replace(/^.+\[\/spoiler\].+/gm, formats[i].pchum[1])
@@ -243,7 +249,13 @@ let generateFormats = () => {
   // Format AO3
   var ao3 = document.getElementById("Basic_HTML").cloneNode(true)
   ao3.innerHTML = ao3.innerHTML.replace("Basic_HTML", "AO3 HTML")
-  ao3.innerHTML = ao3.innerHTML.replaceAll("<span style='font-family:Courier New'>", "")
+  console.log(ao3.innerHTML)
+
+  // Remove fonts
+  ao3.innerHTML = ao3.innerHTML.replace(/&lt;span style='font-family:.+?'&gt;(.+?)&lt;\/span&gt;/g, "$1")
+  // Remove spaces
+  ao3.innerHTML = ao3.innerHTML.replace(/\n\n/g, "\n")
+
   ao3.id = "ao3_Html"
   
   for (const [key, value] of Object.entries(ao3Classes)) {
