@@ -221,11 +221,11 @@ let generateFormats = () => {
     e = e.replaceAll(formats[i].headings[0][0] + PendString + formats[i].headings[0][1], formats[i].pchum[1])
 
     // html
-    e = e.replaceAll("<p><span style='color:#000000'>pchumStart_flaringKisCool</span></p>", formats[i].pchum[0])
-    e = e.replaceAll("<p><span style='color:#000000'>pchumEnd_flaringKisCool</span></p>", formats[i].pchum[1])
+    e = e.replace(/^.+pchumStart_flaringKisCool.+/gm, formats[i].pchum[0])
+    e = e.replace(/^.+pchumEnd_flaringKisCool.+/gm, formats[i].pchum[1])
 
     // remove <p> in block
-    e = e.replace(/<div class='block pchum'>((.|\n)+?)<\/div>/g, (match, p1) => {
+    e = e.replace(/<div class='block pchum'>((.|\n)+?)<\/div>/g, match => {
       match = match.replace(/<p>/g, "").replace(/<\/p>/g, "<br>")
       return match
     })
