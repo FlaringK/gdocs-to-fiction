@@ -126,13 +126,7 @@ let createTags = (style, spanClass) => {
 		fontTagPair[0] = fontTagPair[0].replace("%INPUT%", style.fontFamily)
 		fTags.push(fontTagPair)
 
-		// Size
-		var sizeTagPair = [formats[i]["size"][0], formats[i]["size"][1]]
-		var roundedFontSize = parseFloat(style.fontSize.substring(0, style.fontSize.length - 2)).toFixed(0)
-		sizeTagPair[0] = sizeTagPair[0].replace("%INPUT%", roundedFontSize)
-		fTags.push(sizeTagPair)
-
-		// Underline/strike
+		// Underline/strike/color
 		DecoTags.forEach(rule => {
 			switch (rule) {
 				case "underline":
@@ -143,7 +137,6 @@ let createTags = (style, spanClass) => {
 					break
 			}
 
-			//RGB
 			if (rule.includes("rgb")) {
                 if (!rule.includes("0, 0, 0")) {
 				    getColor(rule, "color")
@@ -151,6 +144,12 @@ let createTags = (style, spanClass) => {
 			}
 
 		})
+
+		// Size
+		var sizeTagPair = [formats[i]["size"][0], formats[i]["size"][1]]
+		var roundedFontSize = parseFloat(style.fontSize.substring(0, style.fontSize.length - 2)).toFixed(0)
+		sizeTagPair[0] = sizeTagPair[0].replace("%INPUT%", roundedFontSize)
+		fTags.push(sizeTagPair)
 
 		tags.push(fTags)
 	}
@@ -218,14 +217,14 @@ let generateFormats = () => {
 					// Apply tags
 					spanTags[i].forEach(tagPair => {
 						//Correct for spaces between tags
-						if (spanText[0] == " ") {
-							startspace = " "
-							spanText = spanText.substring(1)
-						}
-						if (spanText[spanText.length - 1] == " ") {
-							endspace = " "
-							spanText = spanText.substring(0, spanText.length - 1)
-						}
+						// if (spanText[0] == " ") {
+						// 	startspace = " "
+						// 	spanText = spanText.substring(1)
+						// }
+						// if (spanText[spanText.length - 1] == " ") {
+						// 	endspace = " "
+						// 	spanText = spanText.substring(0, spanText.length - 1)
+						// }
 						// Surround text in tags
 						spanText = tagPair[0] + spanText + tagPair[1]
 					})
