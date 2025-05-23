@@ -214,7 +214,7 @@ let generateFormats = () => {
 					if (span.querySelector("a")) {
 						var link = span.querySelector("a")
 						var replaceLink = formats[i]["url"][0] + link.innerText + formats[i]["url"][1]
-						var url = link.href.substring(29, link.href.indexOf("&", 29))
+						var url = link.href.substring(29, link.href.indexOf("&", 29)).replaceAll("%3D", "=")
 						replaceLink = replaceLink.replace("%INPUT%", url)
 						spanText = spanText.replace(link.innerText, replaceLink)
 					}
@@ -244,6 +244,9 @@ let generateFormats = () => {
 
     console.log(classStyles)
 
+    // Remove empty space at the bottom
+
+
 	// Output to page
 	console.log(classStyles)
 	output.forEach((e, i) => {
@@ -272,7 +275,7 @@ let generateFormats = () => {
 		wrap.id = formats[i].name
 
 		var content = document.createElement("textarea")
-		content.innerHTML = e
+		content.innerHTML = e.trim()
 		wrap.appendChild(content)
 
 		prunedOutput.appendChild(wrap)
