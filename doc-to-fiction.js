@@ -191,7 +191,7 @@ let generateFormats = () => {
 			}
 
 			var spans = p.querySelectorAll("span")
-			spans.forEach(span => {
+			spans.forEach((span, spanIndex) => {
 
 				// Create classStyle if class isn't in object yet
 				if (!(span.classList in classStyles) && span.classList) {
@@ -205,6 +205,13 @@ let generateFormats = () => {
 					var startspace = ""
 					var endspace = ""
 
+                    // If span text is just an empty space at the end of the line, skip it:
+                    console.log(spanText, spanIndex)
+                    if (/^\s+$/.test(spanText) && spanIndex == spans.length - 1) {
+                        console.log("VRISKA!!!!!!!!!!!!!!!")
+                        continue
+                    }
+
 					// Check if link exists in span
 					if (span.querySelector("a")) {
 						var link = span.querySelector("a")
@@ -216,15 +223,6 @@ let generateFormats = () => {
 
 					// Apply tags
 					spanTags[i].forEach(tagPair => {
-						//Correct for spaces between tags
-						// if (spanText[0] == " ") {
-						// 	startspace = " "
-						// 	spanText = spanText.substring(1)
-						// }
-						// if (spanText[spanText.length - 1] == " ") {
-						// 	endspace = " "
-						// 	spanText = spanText.substring(0, spanText.length - 1)
-						// }
 						// Surround text in tags
 						spanText = tagPair[0] + spanText + tagPair[1]
 					})
@@ -233,8 +231,6 @@ let generateFormats = () => {
 				}
 
 			})
-
-			console.log(classStyles)
 
 			// Add closing paragraph tag
 			for (let i = 0; i < formats.length; i++) {
@@ -247,6 +243,8 @@ let generateFormats = () => {
 			}
 		}
 	})
+
+    console.log(classStyles)
 
 	// Output to page
 	console.log(classStyles)
