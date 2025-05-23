@@ -179,7 +179,7 @@ let generateFormats = () => {
 	fileOutput.innerHTML = fileOutput.innerHTML.replaceAll("<div", "<p").replaceAll("div>", "p>")
 
 	var paragraphs = fileOutput.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
-	paragraphs.forEach(p => {
+	paragraphs.forEach((p, paraIndex) => {
 
 		// Check if there's any text in the paragraph at all
 		if (p.innerText) {
@@ -194,12 +194,13 @@ let generateFormats = () => {
 			spans.forEach((span, spanIndex) => {
 
 				// Create classStyle if class isn't in object yet
-				if (!(span.classList in classStyles) && span.classList) {
-					classStyles[span.classList.toString()] = createTags(getComputedStyle(span), span.classList)
+                let className = span.classList.toString() + "_" + paraIndex
+				if (!(className in classStyles) && className) {
+					classStyles[className] = createTags(getComputedStyle(span), span.classList)
 				}
 
 				// Format span one for each format style
-				var spanTags = classStyles[span.classList.toString()]
+				var spanTags = classStyles[className]
 				for (let i = 0; i < formats.length; i++) {
 					var spanText = span.innerText
 					var startspace = ""
