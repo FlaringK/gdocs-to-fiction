@@ -206,9 +206,7 @@ let generateFormats = () => {
 					var endspace = ""
 
                     // If span text is just an empty space at the end of the line, skip it:
-                    console.log(spanText, spanIndex)
                     if (/^\s+$/.test(spanText) && spanIndex == spans.length - 1) {
-                        console.log("VRISKA!!!!!!!!!!!!!!!")
                         continue
                     }
 
