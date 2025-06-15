@@ -126,14 +126,12 @@ body > p, #file-preview {
   text-align: left;
 }
 
-#pruned-output {
+.output-wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-
-  min-height: 20em;
 }
-#pruned-output > div {
+.output-wrap > div {
   padding: 1em;
   margin-bottom: 1em;
   min-width: 40vw;
@@ -144,7 +142,7 @@ body > p, #file-preview {
 
   flex-grow: 1;
 }
-#pruned-output textarea {
+.output-wrap textarea {
   display: block;
   width: 100%;
   resize: none;

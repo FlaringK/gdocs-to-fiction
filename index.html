@@ -29,7 +29,7 @@
     <u style="font-size: larger; font-style: italic;">Preview</u>
     <div id="file-output"></div>
     
-    <div class="optionWrap">
+    <!-- <div class="optionWrap">
       <u style="font-size: larger; font-style: italic;">Homestuck formatting</u><br>
       <div class="tooltip">(What is this?)
         <span class="tooltiptext">This will add formatting to the original Gdoc to emulate a pesterlog from the webcomic homestuck. 
@@ -92,31 +92,15 @@
       <br><br>
 
       <button onclick="applyPesterchum()" id="aplPchum">Auto apply pesterlog formatting</button>
-    </div>
+    </div> -->
+    
     <br>
-
-    <!-- <div class="optionWrap">
-      <u style="font-size: larger; font-style: italic;">WingDing options</u><br>
-      <div class="tooltip">(What is this?)
-        <span class="tooltiptext">This will convert allocated text into wingdings.
-        </span>
-      </div> 
-      
-      <br><br>
-
-      <label for="wingdcite">Create translation citations</label><input type="checkbox" name="wingdcite" id="wingdcite">
-      
-      <br><br>
-
-      <button onclick="" id="aplWingd">Convert allocated text to Wingdings</button>
-    </div>
-    <br> -->
-
     
     <div class="optionWrap">
-      <u style="font-size: larger; font-style: italic;">Other options</u><br>
+      <u style="font-size: larger; font-style: italic;">Options</u> <br>
 
-      <label for="bgcolor">Include highlight colors in conversion </label><input type="checkbox" name="bgcolor" id="bgcolor">
+      <label for="bgcolor">Include highlight colors in conversion </label><input type="checkbox" name="bgcolor" id="bgcolor"> <br>
+      <label for="bgcolor">Force 1.15 line height in AO3 workskin </label><input type="checkbox" name="ao3line" id="ao3line"> <br>
 
     </div>
 
@@ -125,8 +109,12 @@
     
   </div>
 
-  <div id="pruned-output">
+  <div id="pruned-output" class="output-wrap">
     <p>The outputs will be shown here!</p>
+  </div>
+
+  <div id="ao3-output" class="output-wrap">
+    <p>AO3 outputs will be shown here!</p>
   </div>
   
 
