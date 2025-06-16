@@ -285,9 +285,8 @@ let generateAo3FormatAndWorkskin = basicHtml => {
 	let styleTagRegex = /style='([a-z-]+):([^']+)'/g
 	let invalidCSSCharacterRegex = /[^a-zA-Z0-9-_]/g
 
-	if (document.getElementById("ao3line").checked) {
-		workskinContent += "#workskin p { line-height: 1.15; }\n"
-	}
+	if (document.getElementById("ao3line").checked) { workskinContent += "#workskin p { line-height: 1.15; }\n" }
+	if (document.getElementById("ao3links").checked) { workskinContent += "#workskin a { color: inherit; }\n" }
 
 	let createdClasses = []
 
