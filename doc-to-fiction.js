@@ -294,7 +294,7 @@ let generateAo3FormatAndWorkskin = basicHtml => {
 	textContent = textContent.replace(styleTagRegex, (match, p1, p2) => {
 		let className = `${p1}_${p2.replace(invalidCSSCharacterRegex, "")}`
 		let htmlClass = `class='${className}'`
-		let cssSelector = `.${className} { ${p1}: ${p2}; }\n`
+		let cssSelector = `#workskin .${className} { ${p1}: ${p2}; }\n`
 
 		// Add class to workskin
 		if (!createdClasses.includes(cssSelector)) {
