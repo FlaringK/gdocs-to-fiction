@@ -280,13 +280,13 @@ let createOutputTextArea = (name, textContent, location) => {
 
 let generateAo3FormatAndWorkskin = basicHtml => {
 
-	let workskinContent = ".spacer { display: block; height: 1em; }\np { margin: 0; }\n"
+	let workskinContent = "#workskin .spacer { display: block; height: 1em; }\n#workskin p { margin: 0; }\n"
 	let textContent = basicHtml
 	let styleTagRegex = /style='([a-z-]+):([^']+)'/g
 	let invalidCSSCharacterRegex = /[^a-zA-Z0-9-_]/g
 
 	if (document.getElementById("ao3line").checked) {
-		workskinContent += "p { line-height: 1.15; }\n"
+		workskinContent += "#workskin p { line-height: 1.15; }\n"
 	}
 
 	let createdClasses = []
