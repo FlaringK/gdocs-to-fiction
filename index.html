@@ -97,11 +97,29 @@
     <br>
     
     <div class="optionWrap">
-      <u style="font-size: larger; font-style: italic;">Options</u> <br>
+      <u style="font-size: larger; font-style: italic;">Converter Options</u> <br>
 
       <label for="bgcolor">Include highlight colors in conversion </label><input type="checkbox" name="bgcolor" id="bgcolor"> <br>
-      <label for="bgcolor">Force 1.15 line height in AO3 workskin </label><input type="checkbox" name="ao3line" id="ao3line"> <br>
-      <label for="bgcolor">Enabel color inherting on links in AO3 workskin </label><input type="checkbox" name="ao3links" id="ao3links"> <br>
+      <br>
+      <u style="font-size: larger; font-style: italic;">AO3 Workskin Options</u> <br>
+      <label for="bgcolor">Force blank paragraph spacing in AO3 workskin </label><input type="checkbox" name="ao3line" id="ao3line"> 
+      <div class="tooltip">(?)
+        <span class="tooltiptext"> By default AO3 will remove blank paragraphs in your text. This option will preserve them but may break text not formatted by this converter.
+        </span>
+      </div>  
+      <br>
+      <label for="bgcolor">Force 1.15 line height in AO3 workskin </label><input type="checkbox" name="ao3line" id="ao3line"> 
+      <div class="tooltip">(?)
+        <span class="tooltiptext"> AO3 has a line height of 1.5, but google docs has a line height of 1.15. This option will make AO3 have the same line height.
+        </span>
+      </div>  
+      <br>
+      <label for="bgcolor">Enable color inherting on links in AO3 workskin </label><input type="checkbox" name="ao3links" id="ao3links"> 
+      <div class="tooltip">(?)
+        <span class="tooltiptext"> AO3 will color links black (and grey on hover). This option will make links have the same color as they do in the google doc.
+        </span>
+      </div>  
+      <br>
 
     </div>
 
