@@ -64,7 +64,7 @@
       "background": ["<span style='background:%INPUT%'>", "</span>"],
       "color": ["<span style='color:%INPUT%'>", "</span>"],
       "font": ["<span style='font-family:%INPUT%'>", "</span>"],
-      "size": ["<span style='font-size:%INPUT%'>", "</span>"],
+      "size": ["<span style='font-size:%INPUT%px'>", "</span>"],
       "url": ["<a href='%INPUT%'>", "</a>"],
 
       "headings": [
